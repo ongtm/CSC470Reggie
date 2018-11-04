@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".accountsDetailActivity">
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="5">
+        android:weightSum="5"> -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".55"
-            android:orientation="horizontal"
-            android:weightSum="5">
+            android:orientation="horizontal">
+            <!--android:weightSum="5"-->
             <Button
                 android:id="@+id/backButton"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -42,7 +42,7 @@
                 android:text="@string/editButton"
                 android:textSize="13sp"/>
         </LinearLayout>
-        <ScrollView
+        <!--<ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="top"
@@ -54,6 +54,7 @@
             android:layout_weight=".55"
             android:paddingLeft="30dp"
             android:paddingRight="30dp">
+
             <Button
                 android:id="@+id/addButton"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -61,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/addButton"
                 android:textSize="14sp"
-                android:visibility="visible"
-                android:textStyle="bold"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>-->
+    <!--</LinearLayout>-->
 
 </android.support.constraint.ConstraintLayout>
