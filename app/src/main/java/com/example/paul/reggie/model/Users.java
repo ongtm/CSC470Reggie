@@ -48,8 +48,8 @@ public class Users {
     //To String method for Users Table
     @Override
     public String toString(){
-        return "Users{" +
-                "userName = '" + userName + '\'' +
+        return "Users {" +
+                " userName = '" + userName + '\'' +
                 ", password = '" + password + '\'' +
                 '}';
     }

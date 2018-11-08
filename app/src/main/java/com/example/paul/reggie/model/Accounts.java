@@ -1,5 +1,9 @@
 package com.example.paul.reggie.model;
 
+import android.content.ContentValues;
+
+import com.example.paul.reggie.database.AccountsTable;
+
 import java.util.UUID;
 
 public class Accounts {
@@ -79,4 +83,31 @@ public class Accounts {
     public void setAccountAvailableBalance(double accountAvailableBalance) {
         this.accountAvailableBalance = accountAvailableBalance;
     }
+
+    //Method for implementing insertions into Accounts Table
+    public ContentValues toAccountsTable(){
+        ContentValues accountValues = new ContentValues(6);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTID,accountID);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTNAME,accountName);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_CURRENTBALANCE,accountCurrentBalance);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_PENDINGPAYMENTS,accountPendingPayments);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS,accountPendingDeposits);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_AVAILABLEBALANCE,accountAvailableBalance);
+
+        return accountValues;
+    }
+
+    //To string method for Accounts Table
+    @Override
+    public String toString(){
+        return "Accounts {" +
+                " accountID = '" + accountID + '\'' +
+                ", accountName = '" + accountName + '\'' +
+                ", accountCurrentBalance = '" + accountCurrentBalance + '\'' +
+                ", accountPendingPayments = '" + accountPendingPayments + '\'' +
+                ", accountPendingDeposits = '" + accountPendingDeposits + '\'' +
+                ", accountAvailableBalance = '" + accountAvailableBalance + '\'' +
+                '}';
+    }
+
 }

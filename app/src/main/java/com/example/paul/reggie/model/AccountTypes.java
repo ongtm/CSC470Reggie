@@ -1,9 +1,13 @@
 package com.example.paul.reggie.model;
 
+import android.content.ContentValues;
+
+import com.example.paul.reggie.database.AccountTypesTable;
+
 import java.util.UUID;
 
 public class AccountTypes {
-    private String accountType;
+    private String accountTypeID;
     private String accountTypeName;
 
     //No argument constructor
@@ -17,17 +21,17 @@ public class AccountTypes {
             accountType = UUID.randomUUID().toString();
         }
 
-        this.accountType = accountType;
+        this.accountTypeID = accountType;
         this.accountTypeName = accountTypeName;
     }
 
 
-    public String getAccountType() {
-        return accountType;
+    public String getAccountTypeID() {
+        return accountTypeID;
     }
 
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
+    public void setAccountType(String accountTypeID) {
+        this.accountTypeID = accountTypeID;
     }
 
     public String getAccountTypeName() {
@@ -36,5 +40,24 @@ public class AccountTypes {
 
     public void setAccountTypeName(String accountTypeName) {
         this.accountTypeName = accountTypeName;
+    }
+
+    //Method for implementing insertions into AccountTypes Table
+    public ContentValues toAccountTypes(){
+        ContentValues accountTypeValues = new ContentValues(2);
+
+        accountTypeValues.put(AccountTypesTable.COLUMN_ACCOUNTTYPES_ID,accountTypeID);
+        accountTypeValues.put(AccountTypesTable.COLUMN_ACCOUNTTYPES_NAME,accountTypeName);
+
+        return accountTypeValues;
+    }
+
+    //To string method for AccountTypes Table
+    @Override
+    public String toString(){
+        return "AccountTypes {"  +
+                " accountTypeID = '" + accountTypeID + '\'' +
+                ",accountTypeName = '" + accountTypeName + '\'' +
+                '}';
     }
 }

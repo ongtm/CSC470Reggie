@@ -1,5 +1,9 @@
 package com.example.paul.reggie.model;
 
+import android.content.ContentValues;
+
+import com.example.paul.reggie.database.TransactionsTable;
+
 import java.util.UUID;
 
 public class Transactions {
@@ -109,5 +113,38 @@ public class Transactions {
 
     public void setTransactionAmount(double transactionAmount) {
         this.transactionAmount = transactionAmount;
+    }
+
+    //Method for implementing insertions into Transactions Table
+    public ContentValues toTransactionsValues(){
+        ContentValues transactionValues = new ContentValues(9);
+
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONID,transactionID);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTIONS_ACCOUNTID,accountID);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTIONS_BUDGETID,budgetID);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONDATE,transactionDate);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONDESCRIPTION,transactionDescription);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONTYPE,transactionType);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONSUBTYPE,transactionSubType);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONSTATUS,transactionStatus);
+        transactionValues.put(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONAMOUNT,transactionAmount);
+
+        return transactionValues;
+    }
+
+    //To String method for Transactions Table
+    @Override
+    public String toString(){
+        return "Transactions {" +
+                " transactionID = '" + transactionID + '\'' +
+                ", accountID = '" + accountID + '\'' +
+                ", budgetID = '" + budgetID + '\'' +
+                ", transactionDate = '" + transactionDate + '\'' +
+                ", transactionDescription = '" + transactionDescription + '\'' +
+                ", transactionType = '" + transactionType + '\'' +
+                ", transactionSubType = '" + transactionSubType + '\'' +
+                ", transactionStatus = '" + transactionStatus + '\'' +
+                ", transactionAmount = '" + transactionAmount + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,10 @@
 package com.example.paul.reggie.model;
 
+import android.content.ContentValues;
+
+import com.example.paul.reggie.BudgetDetailActivity;
+import com.example.paul.reggie.database.BudgetsTable;
+
 import java.util.UUID;
 
 public class Budgets {
@@ -57,5 +62,28 @@ public class Budgets {
 
     public void setCurrentBudgetBalance(double currentBudgetBalance) {
         this.currentBudgetBalance = currentBudgetBalance;
+    }
+
+    //Method for implementing insertions into the Budgets table
+    public ContentValues toBudgetsValues(){
+        ContentValues budgetValues = new ContentValues(4);
+
+        budgetValues.put(BudgetsTable.COLUMN_BUDGETS_BUDGETID,budgetID);
+        budgetValues.put(BudgetsTable.COLUMN_BUDGETS_BUDGETNAME,budgetName);
+        budgetValues.put(BudgetsTable.COLUMN_BUDGETS_TOTALBUDGETAMOUNT,totalBudgetAmount);
+        budgetValues.put(BudgetsTable.COLUMN_BUDGET_CURRENTBUDGETBALANCE,currentBudgetBalance);
+
+        return budgetValues;
+    }
+
+    //To String Method for Budgets Table
+    @Override
+    public String toString(){
+        return  "Budgets {" +
+                " budgetID = '" + budgetID + '\'' +
+                ", budgetName = '" + budgetName + '\'' +
+                ", totalBudgetAmount = '" + totalBudgetAmount + '\'' +
+                ", currentBudgetBalance = '" + currentBudgetBalance + '\'' +
+                '}';
     }
 }

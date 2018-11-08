@@ -1,11 +1,15 @@
 package com.example.paul.reggie.model;
 
+import android.content.ContentValues;
+
+import com.example.paul.reggie.database.TransactionSubTypeTable;
+
 import java.util.UUID;
 
 public class TransactionSubTypes {
     private String transactionSubTypeID;
     private String transactionSubTypeName;
-    private String transactionType;
+    private String transactionType;   //This value here is either credit or debit
 
     //No argument constructor
     public TransactionSubTypes(){
@@ -45,5 +49,26 @@ public class TransactionSubTypes {
 
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
+    }
+
+    //Method for implementing insertions into Transactions SubTypes table
+    public ContentValues toTransactionSubTypesValues(){
+        ContentValues transactionSubTypeValues = new ContentValues(3);
+
+        transactionSubTypeValues.put(TransactionSubTypeTable.COLUMN_TRANSACTIONSUBTYPE_SUBTYPEID,transactionSubTypeID);
+        transactionSubTypeValues.put(TransactionSubTypeTable.COLUMN_TRANSACTIONSUBTYPE_SUBTYPENAME,transactionSubTypeName);
+        transactionSubTypeValues.put(TransactionSubTypeTable.COLUMN_TRANSACTIONSUBTYPE_TRANSACTIONTYPE,transactionType);
+
+        return transactionSubTypeValues;
+    }
+
+    //To String method for TransactionSubType Table
+    @Override
+    public String toString(){
+        return "TransactionSubType{" +
+                " transactionSubTypeID = '" + transactionSubTypeID + '\'' +
+                ", transactionSubTypeName = '" + transactionSubTypeName + '\'' +
+                ", transactionType = '" + transactionType + '\'' +
+                '}';
     }
 }
