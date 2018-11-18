@@ -7,7 +7,10 @@ public class MainActivity extends AppCompatActivity {
 //Adding a change for git test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 }
