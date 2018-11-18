@@ -1,6 +1,7 @@
 package com.example.paul.reggie.model;
 
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,5 +26,17 @@ public class DataSource {
     //Closes Database
     public void close(){ mDBHelper.close(); }
 
+    public boolean isEmpty(String tableName){
+        mDatabase = mDBHelper.getWritableDatabase();
 
+        long numOfRows = DatabaseUtils.queryNumEntries(mDatabase,tableName);
+
+        if(numOfRows == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
 }

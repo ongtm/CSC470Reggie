@@ -21,5 +21,5 @@ public class AccountsTable {
             COLUMN_ACCOUNTS_AVAILABLEBALANCE + " DOUBLE " + ");";
 
     //SQL String to delete Accounts Table
-    public static final String SQL_DROP_TABLE_ACCOUNTS = "DROP TABLE " + TABLE_ACCOUNTS;
+    public static final String SQL_DELETE_TABLE_ACCOUNTS = "DROP TABLE " + TABLE_ACCOUNTS;
 }

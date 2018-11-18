@@ -3,12 +3,15 @@ package com.example.paul.reggie;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
+import com.example.paul.reggie.database.DBHelper;
+import com.example.paul.reggie.model.Users;
+import com.example.paul.reggie.model.DataSource;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -28,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +42,123 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {//implements LoaderCallbacks<Cursor> {
+    private Users mUser;
+    private String mUserId;
+    private DataSource mDataSource;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
+        //Setting views and buttons
+        TextView textViewLoginLabel = findViewById(R.id.login_label);
+        EditText editTextUserName = findViewById(R.id.username_edittext);
+
+        EditText editTextPin = findViewById(R.id.pin_edittext);
+        editTextPin.setHint("Please enter a PIN");
+
+        EditText editTextCPin = findViewById(R.id.confirmpin_edittext);
+        editTextCPin.setHint("Please re-enter the PIN");
+
+        Button buttonLogin = findViewById(R.id.login_button);
+
+        if (mDataSource.isEmpty("users") == true) {
+            //change value of login_label to read "Create New User Login Name"
+            textViewLoginLabel.setText("Create New User Login");
+
+            //Set edit text box Username to visible and provide hint line
+            editTextUserName.setVisibility(View.VISIBLE);
+            editTextUserName.setHint("Please enter a user name");
+
+            //Set edit text box Confirm Pin to visible
+            editTextCPin.setVisibility(View.VISIBLE);
+
+            //Set Button Text
+            buttonLogin.setText("Create User");
+        } else {
+            //Change value of login_label to read "Enter Pin to Login"
+            textViewLoginLabel.setText("Enter Pin to Login");
+
+            //Set edit text box Username to GONE
+            editTextUserName.setVisibility(View.GONE);
+
+            //Set edit text box Confirm Pin to GONE
+            editTextCPin.setVisibility(View.GONE);
+
+            //Set Button Text
+            buttonLogin.setText("Create User");
+        }
+    }
+
+    public boolean onClickLogin(View view) {
+        //Setting Views and buttons
+        EditText editTextUserName = findViewById(R.id.username_edittext);
+        EditText editTextPin = findViewById(R.id.pin_edittext);
+        EditText editTextCPin = findViewById(R.id.confirmpin_edittext);
+        Button buttonLogin = findViewById(R.id.login_button);
+
+        //Check state of form
+        if (mDataSource.isEmpty("users") ) {
+            //check if edit text box user name is empty
+                if(isEmpty(editTextUserName)) {
+                    Toast.makeText(this, "Please enter a user name", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            //Check if edit text box for pin is empty
+                if (isEmpty(editTextPin)){
+                    Toast.makeText(this,"Please enter a Pin",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+           //Check if pins match
+                String PinS, PinCS;
+                PinS = editTextPin.getText().toString();
+                PinCS = editTextCPin.getText().toString();
+                Integer PinI, PinCI;
+                PinI = Integer.parseInt(PinS);
+                PinCI = Integer.parseInt(PinCS);
+
+
+                if(PinI.compareTo(PinCI) != 0){
+                    Toast.makeText(this,"The Pins entered do not match",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                Toast.makeText(this,"Creating User now",Toast.LENGTH_SHORT).show();
+
+
+            //
+        }
+        return true;
+    }
+
+
+    public boolean isEmpty(EditText et) {
+        if (et.getText().toString().trim().length() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+}
+//************************************not sure where this code came from***************
     // Id to identity READ_CONTACTS permission request.
-    private static final int REQUEST_READ_CONTACTS = 0;
+    //private static final int REQUEST_READ_CONTACTS = 0;
 
     //A dummy authentication store containing known user names and passwords.
-        //TODO: remove after connecting to a real authentication system.
+    //TODO: remove after connecting to a real authentication system.
     /*private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };*/
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
+
+     /* Keep track of the login task to ensure we can cancel it if requested.
      */
 /*    private UserLoginTask mAuthTask = null;
 
@@ -57,17 +166,15 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
-    private View mLoginFormView;
+    private View mLoginFormView;*/
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        //Check if app has a userId in SQLite database
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+       /* mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
+
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -88,10 +195,10 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
         });
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-    }
+        mProgressView = findViewById(R.id.login_progress);*/
+//    }
 
-    private void populateAutoComplete() {
+    /*private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
@@ -135,8 +242,8 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
     }*/
 
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
+
+     /* Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
@@ -343,5 +450,3 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
             showProgress(false);
         }
     }*/
-}
-

@@ -1,6 +1,7 @@
 package com.example.paul.reggie.model;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.example.paul.reggie.database.UserTable;
 
