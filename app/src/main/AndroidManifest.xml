@@ -22,15 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".BudgetDetailActivity" />
         <!--<activity
             android:name=".navActivity"
             android:label="@string/title_activity_nav"
             android:theme="@style/AppTheme" />-->
         <activity android:name=".budgetspageActivity" />
-        <activity android:name=".accountsDetailActivity"></activity>
+        <activity android:name=".accountsDetailActivity"/>
+        <activity android:name=".AccountSummaryActivity"/>
     </application>
 
 </manifest>

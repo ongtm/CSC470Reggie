@@ -1,42 +1,18 @@
 package com.example.paul.reggie;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-import com.example.paul.reggie.database.DBHelper;
+
 import com.example.paul.reggie.model.Users;
 import com.example.paul.reggie.model.DataSource;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -100,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
         EditText editTextUserName = findViewById(R.id.username_edittext);
         EditText editTextPin = findViewById(R.id.pin_edittext);
         EditText editTextCPin = findViewById(R.id.confirmpin_edittext);
-        Button buttonLogin = findViewById(R.id.login_button);
 
         //Check state of form
         if (mDataSource.isEmpty("users") ) {
@@ -115,23 +90,36 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
                     return false;
                 }
            //Check if pins match
+                //Pulls values from edit box and converts to string
                 String PinS, PinCS;
                 PinS = editTextPin.getText().toString();
                 PinCS = editTextCPin.getText().toString();
+                //Converts Strings into Integers for Compare
                 Integer PinI, PinCI;
                 PinI = Integer.parseInt(PinS);
                 PinCI = Integer.parseInt(PinCS);
 
-
+                //Comparison done
                 if(PinI.compareTo(PinCI) != 0){
                     Toast.makeText(this,"The Pins entered do not match",Toast.LENGTH_SHORT).show();
                     return false;
                 }
 
-                Toast.makeText(this,"Creating User now",Toast.LENGTH_SHORT).show();
+                //Converting edit text User name into String
+                String UserName = editTextUserName.toString();
+
+                //Objects for table insertion
+                Users aUser = new Users(UserName,PinS);
+
+                aUser.toUsersValues();
+                Toast.makeText(this,"New User Created!",Toast.LENGTH_SHORT).show();
+
+                //Moving to Accounts Summary xml file
+                Intent intent = new Intent(this, AccountSummaryActivity.class);
+                startActivity(intent);
 
 
-            //
+
         }
         return true;
     }
