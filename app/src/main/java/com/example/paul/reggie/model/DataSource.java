@@ -1,6 +1,8 @@
 package com.example.paul.reggie.model;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -38,5 +40,16 @@ public class DataSource {
             return false;
         }
 
+    }
+
+    public void onInsert(ContentValues contentValues, String tableName){
+        mDatabase.insert(tableName,null,contentValues);
+    }
+
+    public Cursor onQuery(String tableName, String [] projection, String selection, String [] selectionArgs, String groupBy, String filterBy, String sortOrder){
+            Cursor c;
+            c = mDatabase.query(tableName,projection,selection,selectionArgs,groupBy,filterBy,sortOrder);
+
+        return  c;
     }
 }

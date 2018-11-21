@@ -2,6 +2,7 @@ package com.example.paul.reggie.model;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.example.paul.reggie.database.UserTable;
 
@@ -42,6 +43,8 @@ public class Users {
         ContentValues userValues = new ContentValues(2);
         userValues.put(UserTable.COLUMN_USERS_USERNAME, userName);
         userValues.put(UserTable.COLUMN_USERS_PASSWORD, password);
+
+
 
         return userValues;
     }

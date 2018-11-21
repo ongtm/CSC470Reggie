@@ -2,10 +2,13 @@ package com.example.paul.reggie;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.paul.reggie.model.Users;
 import com.example.paul.reggie.model.DataSource;
+
 
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
         editTextCPin.setHint("Please re-enter the PIN");
 
         Button buttonLogin = findViewById(R.id.login_button);
-
+        //Toast.makeText(this,"Is my table empty ")
         if (mDataSource.isEmpty("users") == true) {
             //change value of login_label to read "Create New User Login Name"
             textViewLoginLabel.setText("Create New User Login");
@@ -67,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
             editTextCPin.setVisibility(View.GONE);
 
             //Set Button Text
-            buttonLogin.setText("Create User");
+            buttonLogin.setText("Login");
         }
     }
 
@@ -110,8 +113,12 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
 
                 //Objects for table insertion
                 Users aUser = new Users(UserName,PinS);
+                ContentValues contentValues;
 
-                aUser.toUsersValues();
+                contentValues = aUser.toUsersValues();
+
+                mDataSource.onInsert(contentValues,"users");
+
                 Toast.makeText(this,"New User Created!",Toast.LENGTH_SHORT).show();
 
                 //Moving to Accounts Summary xml file
@@ -121,8 +128,22 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
 
 
         }
+        else{
+
+            //Check value against value in database
+            Cursor cursor;
+            cursor = mDataSource.onQuery("users",null,null,null ,null,null,null);
+            String Pin;
+
+           Pin = cursor.getString(cursor.getColumnIndex("password"));
+            Toast.makeText(this,"PIN In database is here " + Pin ,Toast.LENGTH_LONG).show();
+           //If pin matches Login
+
+            //Else throw error
+        }
         return true;
     }
+
 
 
     public boolean isEmpty(EditText et) {
