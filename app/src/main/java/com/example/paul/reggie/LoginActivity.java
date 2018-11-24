@@ -2,8 +2,8 @@ package com.example.paul.reggie;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+//import android.database.Cursor;
+//import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.paul.reggie.model.Users;
@@ -80,8 +80,11 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
         EditText editTextPin = findViewById(R.id.pin_edittext);
         EditText editTextCPin = findViewById(R.id.confirmpin_edittext);
 
-        //Check state of form
-        if (mDataSource.isEmpty("users") ) {
+        //Check if form is in Login State or  Create User State
+        //Create User State
+            //Checks if user name has been populated
+            //Checks if Pin and pin confirmation have values and match
+        if (mDataSource.isEmpty("users") == true) {
             //check if edit text box user name is empty
                 if(isEmpty(editTextUserName)) {
                     Toast.makeText(this, "Please enter a user name", Toast.LENGTH_SHORT).show();
@@ -94,53 +97,63 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
                 }
            //Check if pins match
                 //Pulls values from edit box and converts to string
-                String PinS, PinCS;
-                PinS = editTextPin.getText().toString();
-                PinCS = editTextCPin.getText().toString();
-                //Converts Strings into Integers for Compare
-                Integer PinI, PinCI;
-                PinI = Integer.parseInt(PinS);
-                PinCI = Integer.parseInt(PinCS);
+                String PinS = editTextPin.getText().toString();
+                String PinCS = editTextCPin.getText().toString();
 
-                //Comparison done
+                //Converts Strings into Integers for Compare
+                Integer PinI = Integer.parseInt(PinS);
+                Integer PinCI = Integer.parseInt(PinCS);
+
+                //Compares integers to ensure they match
                 if(PinI.compareTo(PinCI) != 0){
+                    //Pins do not match
                     Toast.makeText(this,"The Pins entered do not match",Toast.LENGTH_SHORT).show();
                     return false;
                 }
 
-                //Converting edit text User name into String
+            //Converting edit text User name into String
                 String UserName = editTextUserName.toString();
 
-                //Objects for table insertion
+            //Objects for table insertion
                 Users aUser = new Users(UserName,PinS);
                 ContentValues contentValues;
-
                 contentValues = aUser.toUsersValues();
 
                 mDataSource.onInsert(contentValues,"users");
 
                 Toast.makeText(this,"New User Created!",Toast.LENGTH_SHORT).show();
-
-                //Moving to Accounts Summary xml file
-                Intent intent = new Intent(this, AccountSummaryActivity.class);
-                startActivity(intent);
-
-
-
         }
         else{
 
-            //Check value against value in database
-            Cursor cursor;
-            cursor = mDataSource.onQuery("users",null,null,null ,null,null,null);
-            String Pin;
+            //Check Entered Pin value against Pin value in database
+           Users thisUser;
+           String password;
+           Integer PinEntered, PinDatabase;
 
-           Pin = cursor.getString(cursor.getColumnIndex("password"));
-            Toast.makeText(this,"PIN In database is here " + Pin ,Toast.LENGTH_LONG).show();
-           //If pin matches Login
+            //Gets Pin from activity, converts to string and then to an integer
+            //EditText pin = findViewById(R.id.pin_edittext);
+            String sPin = editTextPin.getText().toString();
+            PinEntered = Integer.parseInt(sPin);
 
-            //Else throw error
+            //Creates User object and pulls user from database
+            thisUser = mDataSource.getUser();
+
+            //Retreive password
+            password = thisUser.getPassword();
+            PinDatabase = Integer.parseInt(password);
+
+
+           //If Pin entered does not match Pin in database
+            if(PinEntered.compareTo(PinDatabase) !=0 ){
+                    Toast.makeText(this,"Incorrect Pin Entered. Try Again.", Toast.LENGTH_LONG).show();
+                    return false;
+            }
         }
+
+        //Moving to Accounts Summary xml file
+        Intent intent = new Intent(this, AccountSummaryActivity.class);
+        startActivity(intent);
+
         return true;
     }
 

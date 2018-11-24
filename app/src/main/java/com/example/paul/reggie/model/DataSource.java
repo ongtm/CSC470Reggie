@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.example.paul.reggie.database.DBHelper;
+import com.example.paul.reggie.database.UserTable;
 
 public class DataSource {
     private Context mContext;
@@ -43,13 +45,26 @@ public class DataSource {
     }
 
     public void onInsert(ContentValues contentValues, String tableName){
+
         mDatabase.insert(tableName,null,contentValues);
     }
 
-    public Cursor onQuery(String tableName, String [] projection, String selection, String [] selectionArgs, String groupBy, String filterBy, String sortOrder){
-            Cursor c;
-            c = mDatabase.query(tableName,projection,selection,selectionArgs,groupBy,filterBy,sortOrder);
+    public Users getUser(){
+        mDatabase = mDBHelper.getReadableDatabase();
 
-        return  c;
+        Cursor cursor = mDatabase.query("users",new String[] {"users.username","users.password"},null,null,null,null,null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+
+
+        Users users =  new Users(cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_USERS_USERNAME)),cursor.getString(cursor.getColumnIndex(UserTable.COLUMN_USERS_PASSWORD)));
+
+        cursor.close();
+
+        return users;
     }
+
+
 }
