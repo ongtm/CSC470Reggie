@@ -1,7 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/account_summary_accountid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+    </TextView>
 
+    <TextView
+        android:id="@+id/account_summary_accountnamelabel"
+        android:text="Account Name"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accountname"
+        android:text="@string/accountSummaryAccountName"
+        android:gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintStart_toEndOf="@+id/account_summary_accountnamelabel"
+        app:layout_constraintTop_toTopOf="@id/account_summary_accountnamelabel">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accounttypelabel"
+        android:text="Account Type"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/account_summary_accountname"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accounttype"
+        android:text="@string/accountSummaryAccountType"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@id/account_summary_accounttypelabel"
+        app:layout_constraintStart_toEndOf="@+id/account_summary_accounttypelabel">
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accountcbalancelabel"
+        android:text="Current Account Balance"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/account_summary_accounttype"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accountcbalance"
+        android:text="@string/accountSummaryCAccountBalance"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@id/account_summary_accountcbalancelabel"
+        app:layout_constraintStart_toEndOf="@+id/account_summary_accountcbalancelabel">
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accountabalancelabel"
+        android:text="Available Account Balance"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/account_summary_accountcbalance"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <TextView
+        android:id="@+id/account_summary_accountabalance"
+        android:text="@string/accountSummaryAAccountBalance"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@id/account_summary_accountabalancelabel"
+        app:layout_constraintStart_toEndOf="@+id/account_summary_accountabalancelabel">
+    </TextView>
+
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/account_summary_deleteaccount"
+        android:text="@string/accountSummaryDeleteAccount"
+        app:layout_constraintTop_toBottomOf="@id/account_summary_accountabalance"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="8dp">
+    </Button>
 </android.support.constraint.ConstraintLayout>

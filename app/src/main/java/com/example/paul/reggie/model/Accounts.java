@@ -9,6 +9,7 @@ import java.util.UUID;
 public class Accounts {
     private String accountID;
     private String accountName;
+    private String accountType;
     private double accountCurrentBalance;
     private double accountPendingPayments;
     private double accountPendingDeposits;
@@ -20,7 +21,7 @@ public class Accounts {
     }
 
     //Standard Constructor
-    public Accounts(String accountID, String accountName, double accountCurrentBalance,
+    public Accounts(String accountID, String accountName, String accountType, double accountCurrentBalance,
                     double accountPendingPayments, double accountPendingDeposits,
                     double accountAvailableBalance){
         if(accountID == null){
@@ -29,6 +30,7 @@ public class Accounts {
 
         this.accountID = accountID;
         this.accountName = accountName;
+        this.accountType = accountType;
         this.accountCurrentBalance = accountCurrentBalance;
         this.accountPendingPayments = accountPendingPayments;
         this.accountPendingDeposits = accountPendingDeposits;
@@ -84,11 +86,19 @@ public class Accounts {
         this.accountAvailableBalance = accountAvailableBalance;
     }
 
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
     //Method for implementing insertions into Accounts Table
     public ContentValues toAccountsTable(){
         ContentValues accountValues = new ContentValues(6);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTID,accountID);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTNAME,accountName);
+        accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTTYPE,accountType);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_CURRENTBALANCE,accountCurrentBalance);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_PENDINGPAYMENTS,accountPendingPayments);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS,accountPendingDeposits);
@@ -103,11 +113,13 @@ public class Accounts {
         return "Accounts {" +
                 " accountID = '" + accountID + '\'' +
                 ", accountName = '" + accountName + '\'' +
+                ", accountType = '" + accountType + '\'' +
                 ", accountCurrentBalance = '" + accountCurrentBalance + '\'' +
                 ", accountPendingPayments = '" + accountPendingPayments + '\'' +
                 ", accountPendingDeposits = '" + accountPendingDeposits + '\'' +
                 ", accountAvailableBalance = '" + accountAvailableBalance + '\'' +
                 '}';
     }
+
 
 }

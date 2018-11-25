@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {//implements LoaderCallbac
         Intent intent = new Intent(this, AccountSummaryActivity.class);
         startActivity(intent);
 
+        mDataSource.close();
         return true;
     }
 
