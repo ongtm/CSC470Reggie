@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import com.example.paul.reggie.adapters.AccountSummaryAdapter;
+import com.example.paul.reggie.database.AccountTypesTable;
 import com.example.paul.reggie.database.AccountsTable;
 import com.example.paul.reggie.database.DBHelper;
 import com.example.paul.reggie.database.UserTable;
@@ -97,7 +98,8 @@ public class DataSource {
             } while (cursor.moveToNext());
         }
 
-        mDatabase.close();
+        cursor.close();
+
         return accounts;
     }
 
@@ -121,8 +123,30 @@ public class DataSource {
                 cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS)),
                 cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_AVAILABLEBALANCE)));
 
-        mDatabase.close();
+
+        cursor.close();
+
 
         return accounts;
+    }
+    public ArrayList<AccountTypes> getAccountTypes(){
+        mDatabase = mDBHelper.getReadableDatabase();
+        Cursor cursor = mDatabase.query("accountTypes", new String[]{"accountTypes.accountTypeID, accountTypes.accountTypeName"},null,null,null,null,null);
+
+        ArrayList<AccountTypes> accountTypes = new ArrayList<>();
+
+        if(cursor != null){
+            cursor.moveToFirst();
+            do{
+                AccountTypes accountType = new AccountTypes(cursor.getString(cursor.getColumnIndex(AccountTypesTable.COLUMN_ACCOUNTTYPES_ID)),
+                        cursor.getString(cursor.getColumnIndex(AccountTypesTable.COLUMN_ACCOUNTTYPES_NAME)));
+
+                accountTypes.add(accountType);
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return accountTypes;
     }
 }

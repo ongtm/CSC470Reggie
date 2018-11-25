@@ -94,7 +94,8 @@ public class Accounts {
         this.accountType = accountType;
     }
     //Method for implementing insertions into Accounts Table
-    public ContentValues toAccountsTable(){
+    public ContentValues toAccountsValues(){
+
         ContentValues accountValues = new ContentValues(6);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTID,accountID);
         accountValues.put(AccountsTable.COLUMN_ACCOUNTS_ACCOUNTNAME,accountName);

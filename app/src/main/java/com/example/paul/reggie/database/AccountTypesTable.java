@@ -12,4 +12,9 @@ public class AccountTypesTable {
 
     //SQL String to Delete AccountTypes Table
     public static final String SQL_DELETE_TABLE_ACCOUNTTYPES = "DROP TABLE " + TABLE_ACCOUNTTYPES ;
+
+    //SQL String to add preset Account Types to AccountTypes Table
+    public static final String SQL_LOAD_CHECKING_ACCOUNTTYPES = "INSERT INTO " + TABLE_ACCOUNTTYPES + "VALUES ('C', 'CHECKING')";
+    public static final String SQL_LOAD_MONEYMARKET_ACCOUNTTYPES= "INSERT INTO" + TABLE_ACCOUNTTYPES + "VALUES ('M', 'MONEYMARKET')";
+    public static final String SQL_LOAD_SAVINGS_ACCOUNTTYPES = "INSERT INTO " + TABLE_ACCOUNTTYPES + "VALUES ('S', 'SAVINGS')";
 }

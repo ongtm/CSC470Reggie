@@ -43,7 +43,7 @@ public class AccountTypes {
     }
 
     //Method for implementing insertions into AccountTypes Table
-    public ContentValues toAccountTypes(){
+    public ContentValues toAccountTypeValues(){
         ContentValues accountTypeValues = new ContentValues(2);
 
         accountTypeValues.put(AccountTypesTable.COLUMN_ACCOUNTTYPES_ID,accountTypeID);

@@ -4,21 +4,23 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
+    <ImageButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/account_summary_addnewaccount"
-        android:text="@string/accountSummaryAddNewAccount"
+        android:contentDescription="@string/accountSummaryAddNewAccount"
+        app:srcCompat="@drawable/ic_add_circle_black_24dp"
+        android:onClick="onClickAddNewAccount"
         android:textAlignment="center"
         android:gravity="end|top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="8dp">
-    </Button>
+    </ImageButton>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/account_summary_recyclerview"
         app:layout_constraintTop_toBottomOf="@id/account_summary_addnewaccount"
         android:layout_margin="8dp">

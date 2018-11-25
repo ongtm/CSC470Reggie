@@ -31,6 +31,7 @@
         <activity android:name=".BudgetSummaryActivity" />
         <activity android:name=".AccountDetailActivity"/>
         <activity android:name=".AccountSummaryActivity"/>
+        <activity android:name=".AccountCreationActivity"/>
     </application>
 
 </manifest>
