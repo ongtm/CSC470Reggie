@@ -51,4 +51,8 @@
     <string name="accountSummaryCAccountBalance">1500.00</string>
     <string name="accountSummaryAAccountBalance">1200.00</string>
     <string name="prompt_account_type">Select Account Type</string>
+    <string name="available_account_balance">Available Account Balance</string>
+    <string name="account_name">Account Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="current_account_balance">Current Account Balance</string>
 </resources>

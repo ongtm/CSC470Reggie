@@ -39,7 +39,7 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
             mDataSource.open();
 
         //Checks if accounttypes table has items, if not load them here
-        if(mDataSource.isEmpty("accountTypes") == false){
+        if(mDataSource.isEmpty("accountTypes") == true){
             AccountTypes checking = new AccountTypes("C","Checking");
             AccountTypes moneymarket = new AccountTypes("M","Money Market");
             AccountTypes savings = new AccountTypes("S","Savings");
@@ -54,22 +54,31 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
 
             cv=savings.toAccountTypeValues();
             mDataSource.onInsert(cv,"accountTypes");
+            //Toast.makeText(this,"This loaded",Toast.LENGTH_LONG).show();
         }
 
         //add account types to spinner from database
-            /*ArrayList<AccountTypes> accountTypes = new ArrayList<>();
+            ArrayList<AccountTypes> accountTypes;
             accountTypes = mDataSource.getAccountTypes();
-            ArrayAdapter<AccountTypes> spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,accountTypes);
+
+        ArrayList<String> at = new ArrayList<>();
+            for(int i = 0; i < accountTypes.size(); i++){
+                //Toast.makeText(this,"This is " + accountTypes.get(1).getAccountTypeName(),Toast.LENGTH_LONG).show();
+                at.add(accountTypes.get(i).getAccountTypeName());
+            }
+
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,at);
 
             Spinner accountTypeSpinner = findViewById(R.id.account_type_creation);
             accountTypeSpinner.setAdapter(spinnerAdapter);
 
         //Set onClick Listener for Spinner
-            accountTypeSpinner.setOnItemSelectedListener(this);*/
+            accountTypeSpinner.setOnItemSelectedListener(this);
 
         //Setting currency filter on startingAmount edit text field
             EditText startingAmount = findViewById(R.id.starting_amount_creation);
-            startingAmount.setFilters(new InputFilter[] {new CurrencyFormatInputFilter()});
+            //This code line does not work--Debug
+            //startingAmount.setFilters(new InputFilter[] {new CurrencyFormatInputFilter()});
 
         }
 
@@ -115,6 +124,7 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
             contentValues = aAccount.toAccountsValues();
             mDataSource.onInsert(contentValues,"accounts");
             Toast.makeText(this, "Account Added", Toast.LENGTH_SHORT).show();
+
 
             //Exit back to Accounts Activity
             this.finish();

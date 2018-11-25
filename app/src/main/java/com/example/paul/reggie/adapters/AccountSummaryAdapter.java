@@ -40,7 +40,7 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
             accountType = thisView.findViewById(R.id.account_summary_accounttype);
             accountCBalance = thisView.findViewById(R.id.account_summary_accountcbalance);
             accountABalance = thisView.findViewById(R.id.account_summary_accountabalance);
-            deleteAccount = thisView.findViewById(R.id.account_summary_deleteaccount);
+//            deleteAccount = thisView.findViewById(R.id.account_summary_deleteaccount);
         }
     }
         @Override
@@ -49,8 +49,11 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
 
             View thisView = inflater.inflate(R.layout.activity_account_summary,parent,false);
 
-            AccountSummaryViewHolder accountSummaryViewHolder = new AccountSummaryViewHolder(thisView);
+//            int intListSize = getItemCount();
 
+  //          for(int i =0; i < intListSize;i++) {
+                AccountSummaryViewHolder accountSummaryViewHolder = new AccountSummaryViewHolder(thisView);
+    //        }
             return accountSummaryViewHolder;
         }
 
@@ -72,4 +75,6 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
         public int getItemCount(){
             return mAccounts.size();
         }
+
+
 }

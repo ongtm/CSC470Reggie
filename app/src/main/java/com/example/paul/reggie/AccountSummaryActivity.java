@@ -44,7 +44,7 @@ public class AccountSummaryActivity extends AppCompatActivity{
             mDataSource.open();
 
         //Transfer accounts info from database to Array for recylcerview load
-        if(mDataSource.isEmpty("accounts") == false){
+        if(mDataSource.isEmpty("accounts") == false) {
             mAccounts = mDataSource.getAccounts();
 
             //Get items for recyclerview
@@ -71,5 +71,17 @@ public class AccountSummaryActivity extends AppCompatActivity{
     public void onClickAddNewAccount (View view){
         Intent intent = new Intent(this,AccountCreationActivity.class);
         startActivity(intent);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        mDataSource.close();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        //mDataSource.open();
     }
 }
