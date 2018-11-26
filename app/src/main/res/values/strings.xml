@@ -37,7 +37,9 @@
     <string name="username_hint">UserName</string>
     <string name="pin_hint">Pin Hint</string>
     <string name="cpin_hint">Pin Hint</string>
-
+    <string name="prompt_transaction_amount">Amount</string>
+    <string name="prompt_transaction_name">Transaction Name</string>
+    <string name="createTransactionButton">Create</string>
 
     <string name="prompt_account_name">Account Name</string>
     <string name="prompt_starting_amount">Starting Amount</string>
