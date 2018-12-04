@@ -7,18 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.example.paul.reggie.adapters.AccountSummaryAdapter;
-import com.example.paul.reggie.database.DBHelper;
 import com.example.paul.reggie.model.Accounts;
 import com.example.paul.reggie.model.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("MagicConstant")
 public class AccountSummaryActivity extends AppCompatActivity{
+
+
 
     //Database objects
     List<Accounts> mAccounts = new ArrayList<>();
@@ -35,6 +35,8 @@ public class AccountSummaryActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
+
 
         //Set view to recyclerview
         setContentView(R.layout.activity_account_summary_recyclerview);
@@ -64,6 +66,7 @@ public class AccountSummaryActivity extends AppCompatActivity{
 //        Toast.makeText(this,"This works to here!",Toast.LENGTH_LONG).show();
     }
 
+
     public void onClickDeleteAccount(View view){
 
     }
@@ -85,3 +88,4 @@ public class AccountSummaryActivity extends AppCompatActivity{
         //mDataSource.open();
     }
 }
+

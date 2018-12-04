@@ -1,19 +1,18 @@
 package com.example.paul.reggie.model;
 
-import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
-import com.example.paul.reggie.adapters.AccountSummaryAdapter;
 import com.example.paul.reggie.database.AccountTypesTable;
 import com.example.paul.reggie.database.AccountsTable;
 import com.example.paul.reggie.database.DBHelper;
 import com.example.paul.reggie.database.UserTable;
+import com.example.paul.reggie.database.BudgetsTable;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +102,35 @@ public class DataSource {
         return accounts;
     }
 
+    public List<Budgets> getBudgets() {
+        mDatabase = mDBHelper.getReadableDatabase();
+
+        //how to I use the toString method in the account class to do this
+        Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID, budgets.budgetName, " +
+                "budgets.totalBudgetAmount, budgets.currentBudgetBalance, "}
+                , null, null, null, null, null);
+
+        List<Budgets> budgets = new ArrayList<>();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            do {
+                Budgets budget = new Budgets();
+                budget.setBudgetID(cursor.getString(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGETS_BUDGETID)));
+                budget.setBudgetName(cursor.getString(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGETS_BUDGETNAME)));
+                budget.setCurrentBudgetBalance(Double.parseDouble(cursor.getString(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGET_CURRENTBUDGETBALANCE))));
+                budget.setTotalBudgetAmount(cursor.getDouble(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGETS_TOTALBUDGETAMOUNT)));
+
+                budgets.add(budget);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return budgets;
+    }
+
     public Accounts getAccount(String accountId) {
         mDatabase = mDBHelper.getReadableDatabase();
 
@@ -150,3 +178,4 @@ public class DataSource {
         return accountTypes;
     }
 }
+

@@ -2,7 +2,6 @@ package com.example.paul.reggie.model;
 
 import android.content.ContentValues;
 
-import com.example.paul.reggie.BudgetDetailActivity;
 import com.example.paul.reggie.database.BudgetsTable;
 
 import java.util.UUID;
