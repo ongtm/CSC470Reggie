@@ -57,4 +57,7 @@
     <string name="account_name">Account Name</string>
     <string name="account_type">Account Type</string>
     <string name="current_account_balance">Current Account Balance</string>
+    <string name="view_budgets_menu">View Budgets</string>
+    <string name="how_to_menu">How to</string>
+    <string name="view_transactions_menu">View Transactions</string>
 </resources>
