@@ -36,6 +36,7 @@
                 android:id="@+id/budget_amount_creation"
                 />
 
+            <!-- OLD BUTTON
             <Button
                 android:id="@+id/createBudgetButton"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -43,7 +44,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/budget_amount_creation"
-                android:text="Create Budget" />
+                android:text="Create Budget" /> -->
+            <Button
+                android:id="@+id/createBudgetButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:onClick="onClickCreateBudget"
+                android:text="Create Budget"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.329" />
+
 
 
 </android.support.constraint.ConstraintLayout>
