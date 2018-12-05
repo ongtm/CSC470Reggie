@@ -123,6 +123,7 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
             ContentValues contentValues;
             contentValues = aAccount.toAccountsValues();
             mDataSource.onInsert(contentValues,"accounts");
+
             Toast.makeText(this, "Account Added", Toast.LENGTH_SHORT).show();
 
 

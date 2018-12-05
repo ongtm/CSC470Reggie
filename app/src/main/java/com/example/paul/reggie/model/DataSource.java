@@ -177,5 +177,11 @@ public class DataSource {
 
         return accountTypes;
     }
+
+    public void deleteAccount(String accountID){
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("accounts","accountID=?",new String []{accountID});
+
+    }
 }
 

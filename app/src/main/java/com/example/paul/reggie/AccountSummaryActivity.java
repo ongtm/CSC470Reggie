@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.paul.reggie.adapters.AccountSummaryAdapter;
@@ -40,10 +41,15 @@ public class AccountSummaryActivity extends AppCompatActivity{
 
         //Set view to recyclerview
         setContentView(R.layout.activity_account_summary_recyclerview);
+//        loadAccounts();
 
+
+    }
+
+    public void loadAccounts() {
         //Open database link
-            mDataSource = new DataSource(this);
-            mDataSource.open();
+        mDataSource = new DataSource(this);
+        mDataSource.open();
 
         //Transfer accounts info from database to Array for recylcerview load
         if(mDataSource.isEmpty("accounts") == false) {
@@ -58,7 +64,7 @@ public class AccountSummaryActivity extends AppCompatActivity{
         }
         //Set onClick Listeners for onClickDeleteAccount and onClickNewAccount
 
-
+        //OnClick Listener for View button recyclerview
 
 
 //        setContentView(R.layout.activity_account_summary);
@@ -67,10 +73,6 @@ public class AccountSummaryActivity extends AppCompatActivity{
     }
 
 
-    public void onClickDeleteAccount(View view){
-
-    }
-
     public void onClickAddNewAccount (View view){
         Intent intent = new Intent(this,AccountCreationActivity.class);
         startActivity(intent);
@@ -78,7 +80,7 @@ public class AccountSummaryActivity extends AppCompatActivity{
     @Override
     protected void onPause(){
         super.onPause();
-        mDataSource.close();
+        //mDataSource.close();
     }
 
     @Override
@@ -86,6 +88,12 @@ public class AccountSummaryActivity extends AppCompatActivity{
         super.onResume();
 
         //mDataSource.open();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadAccounts();
     }
 }
 

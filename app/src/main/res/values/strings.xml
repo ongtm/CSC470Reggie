@@ -67,4 +67,5 @@
     <string name="budgetSummaryBudgetName">TestBudget</string>
     <string name="budgetSummaryDeleteBudget">Delete Budget</string>
     <string name="budgetSummaryEditBudget">Edit Budget</string>
+    <string name="accountSummaryViewTransactions">View Transactions</string>
 </resources>
