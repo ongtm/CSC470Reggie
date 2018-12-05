@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.paul.reggie.adapters.BudgetSummaryAdapter;
 import com.example.paul.reggie.model.Budgets;
@@ -51,6 +52,7 @@ public class BudgetDetailActivity extends AppCompatActivity {
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(adapter);
+            Toast.makeText(this,"Testing upload to fork",Toast.LENGTH_SHORT).show();
         }
         //Set onClick Listeners for onClickDeleteAccount and onClickNewAccount
 
