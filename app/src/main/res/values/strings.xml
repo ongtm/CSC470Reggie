@@ -60,4 +60,9 @@
     <string name="view_budgets_menu">View Budgets</string>
     <string name="how_to_menu">How to</string>
     <string name="view_transactions_menu">View Transactions</string>
+    <string name="budgetSummaryCBudgetBalance">150.00</string>
+    <string name="budgetSummaryABudgetBalance">120.00</string>
+    <string name="budgetSummaryBudgetName">TestBudget</string>
+    <string name="budgetSummaryDeleteBudget">Delete Budget</string>
+    <string name="budgetSummaryEditBudget">Edit Budget</string>
 </resources>

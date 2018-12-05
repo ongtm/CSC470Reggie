@@ -1,13 +1,10 @@
 package com.example.paul.reggie;
-
 import android.accessibilityservice.FingerprintGestureController;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -89,28 +86,5 @@ public class BudgetCreationActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int itemID = item.getItemId();
 
-        if(itemID == R.id.menu_viewBudgets){
-            //Navigate to View Budgets Screen
-
-            startActivity(new Intent(BudgetCreationActivity.this,BudgetSummaryActivity.class));
-            this.finish();
-        }
-        else if (itemID == R.id.menu_viewTransactions) {
-            //Navigate to View Transactions screen
-            startActivity(new Intent(BudgetCreationActivity.this, TransactionSummaryActivity.class));
-            this.finish();
-        }
-        else if (itemID == R.id.menu_howTo){
-            //navigate to about
-            Toast.makeText(this, "This menu item is not operational at this time", Toast.LENGTH_LONG).show();
-        }
-
-
-        return super.onOptionsItemSelected(item);
-
-    }
 }
