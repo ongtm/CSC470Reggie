@@ -26,7 +26,7 @@ public class BudgetCreationActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate (Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
@@ -37,37 +37,32 @@ public class BudgetCreationActivity extends AppCompatActivity {
         mDataSource.open();
 
 
-
     }
 
-    public void onClickCreateBudget (View view) {
+    public void onClickCreateBudget(View view) {
         EditText budgetName = findViewById(R.id.budget_name_creation);
         EditText startingAmount = findViewById(R.id.budget_amount_creation);
 
         //Validate that each edit text has a valid value
-        if(isEmpty(budgetName)) {
-            Toast.makeText(this,"Please enter a budget name.",Toast.LENGTH_LONG).show();
-        }
-        else if(isEmpty(startingAmount)){
-            Toast.makeText(this,"Please enter a starting amount.", Toast.LENGTH_LONG).show();
-        }
-        else{
+        if (isEmpty(budgetName)) {
+            Toast.makeText(this, "Please enter a budget name.", Toast.LENGTH_LONG).show();
+        } else if (isEmpty(startingAmount)) {
+            Toast.makeText(this, "Please enter a starting amount.", Toast.LENGTH_LONG).show();
+        } else {
             String budgetNameS = budgetName.getText().toString();
             Double startingAmountD = Double.parseDouble(startingAmount.getText().toString());
 
             //All edit texts and spinner contain info-save info to database
-            Budgets bBudget = new Budgets(null, budgetNameS, startingAmountD,0);
+            Budgets bBudget = new Budgets(null, budgetNameS, startingAmountD, 0);
             ContentValues contentValues;
             contentValues = bBudget.toBudgetsValues();
-            mDataSource.onInsert(contentValues,"budgets");
+            mDataSource.onInsert(contentValues, "budgets");
             Toast.makeText(this, "Budget Added", Toast.LENGTH_SHORT).show();
 
 
             //Exit back to Accounts Activity
             this.finish();
         }
-
-
 
 
     }
@@ -77,13 +72,12 @@ public class BudgetCreationActivity extends AppCompatActivity {
         this.finish();
     }
 
-    public boolean isEmpty(EditText et){
-        if(et.getText().toString().trim().length()>0){
+    public boolean isEmpty(EditText et) {
+        if (et.getText().toString().trim().length() > 0) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
-
+}
