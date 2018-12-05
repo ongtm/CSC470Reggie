@@ -19,4 +19,6 @@ import com.example.paul.reggie.model.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 public class TransactionCreationActivity {
+
 }
+
