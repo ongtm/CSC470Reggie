@@ -52,7 +52,7 @@ public class BudgetDetailActivity extends AppCompatActivity {
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(adapter);
-            Toast.makeText(this,"Testing upload to fork",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Testing upload to ongtm/CSC470Reggie",Toast.LENGTH_SHORT).show();
         }
         //Set onClick Listeners for onClickDeleteAccount and onClickNewAccount
 
