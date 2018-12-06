@@ -4,6 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.paul.reggie.MainActivity;
 
 
 public class DBHelper extends SQLiteOpenHelper{
@@ -28,6 +33,8 @@ public class DBHelper extends SQLiteOpenHelper{
             db.execSQL(TransactionSubTypeTable.SQL_CREATE_TABLE_TRANSACTIONSUBTYPE);
             db.execSQL(UserTable.SQL_CREATE_TABLE_USERS);
 
+
+
         //Add preset account type options to AccountTypes table
             //db.execSQL(AccountTypesTable.SQL_LOAD_CHECKING_ACCOUNTTYPES);
             //db.execSQL(AccountTypesTable.SQL_LOAD_MONEYMARKET_ACCOUNTTYPES);
@@ -48,8 +55,6 @@ public class DBHelper extends SQLiteOpenHelper{
         //Creates updated tables
         onCreate(db);
     }
-
-
 
 
 

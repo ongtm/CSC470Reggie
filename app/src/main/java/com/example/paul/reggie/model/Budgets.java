@@ -63,6 +63,15 @@ public class Budgets {
         this.currentBudgetBalance = currentBudgetBalance;
     }
 
+    public void UpdateBudgets(String budgetID, String budgetName, double totalBudgetAmount, double currentBudgetBalance) {
+
+        if(budgetID == this.budgetID){
+        this.budgetName = budgetName;
+        this.totalBudgetAmount = totalBudgetAmount;
+        this.currentBudgetBalance = currentBudgetBalance;}
+
+    }
+
     //Method for implementing insertions into the Budgets table
     public ContentValues toBudgetsValues(){
         ContentValues budgetValues = new ContentValues(4);
@@ -80,7 +89,7 @@ public class Budgets {
     public String toString(){
         return  "Budgets {" +
                 " budgetID = '" + budgetID + '\'' +
-                ", budgetName = '" + budgetName + '\'' +
+                ", budgetTitle = '" + budgetName + '\'' +
                 ", totalBudgetAmount = '" + totalBudgetAmount + '\'' +
                 ", currentBudgetBalance = '" + currentBudgetBalance + '\'' +
                 '}';

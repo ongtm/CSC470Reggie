@@ -58,6 +58,11 @@ public class DataSource {
         mDatabase.insert(tableName, null, contentValues);
     }
 
+    public void onUpdate(ContentValues contentValues, String budgets) {
+
+        mDatabase.insert(budgets, null, contentValues);
+    }
+
     public Users getUser() {
         mDatabase = mDBHelper.getReadableDatabase();
         Cursor cursor = mDatabase.query("users", new String[]{"users.username", "users.password"}, null, null, null, null, null);
@@ -107,7 +112,7 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID, budgets.budgetName, " +
-                "budgets.totalBudgetAmount, budgets.currentBudgetBalance, "}
+                "budgets.totalBudgetAmount, budgets.currentBudgetBalance"}
                 , null, null, null, null, null);
 
         List<Budgets> budgets = new ArrayList<>();
@@ -177,5 +182,18 @@ public class DataSource {
 
         return accountTypes;
     }
+
+    public void deleteAccount(String accountID){
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("accounts","accountID=?",new String []{accountID});
+
+    }
+
+    public void deleteBudget(String budgetID) {
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("budgets","budgetID=?",new String []{budgetID});
+    }
+
+
 }
 

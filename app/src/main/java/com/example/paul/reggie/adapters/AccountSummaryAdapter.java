@@ -1,15 +1,19 @@
 package com.example.paul.reggie.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.paul.reggie.R;
+import com.example.paul.reggie.TransactionSummaryActivity;
 import com.example.paul.reggie.model.Accounts;
+import com.example.paul.reggie.model.DataSource;
 
 import java.util.List;
 
@@ -30,7 +34,8 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
         public TextView accountType;
         public TextView accountCBalance;
         public TextView accountABalance;
-        public Button deleteAccount;
+        public ImageButton deleteAccount;
+        public ImageButton viewAccount;
 
         public AccountSummaryViewHolder(View thisView) {
             super(thisView);
@@ -40,7 +45,8 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
             accountType = thisView.findViewById(R.id.account_summary_accounttype);
             accountCBalance = thisView.findViewById(R.id.account_summary_accountcbalance);
             accountABalance = thisView.findViewById(R.id.account_summary_accountabalance);
-//            deleteAccount = thisView.findViewById(R.id.account_summary_deleteaccount);
+            deleteAccount = thisView.findViewById(R.id.account_summary_deleteaccount);
+            viewAccount = thisView.findViewById(R.id.account_summary_view_transactions);
         }
     }
         @Override
@@ -52,13 +58,12 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
 //            int intListSize = getItemCount();
 
   //          for(int i =0; i < intListSize;i++) {
-                AccountSummaryViewHolder accountSummaryViewHolder = new AccountSummaryViewHolder(thisView);
-    //        }
-            return accountSummaryViewHolder;
+            //        }
+            return new AccountSummaryViewHolder(thisView);
         }
 
         @Override
-        public void onBindViewHolder(AccountSummaryViewHolder accountSummaryViewHolder,int position){
+        public void onBindViewHolder(AccountSummaryViewHolder accountSummaryViewHolder, final int position){
             Accounts thisAccount = mAccounts.get(position);
 
             accountSummaryViewHolder.accountId.setText(thisAccount.getAccountID());
@@ -70,6 +75,32 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
 
             String aBalance = Double.toString(thisAccount.getAccountAvailableBalance());
             accountSummaryViewHolder.accountABalance.setText(aBalance);
+
+
+            accountSummaryViewHolder.deleteAccount.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    //Delete account and reload recycler view (maybe call on create?
+                    DataSource mDataSource = new DataSource(mContext);
+                    mDataSource.open();
+                    String accountID = mAccounts.get(position).getAccountID();
+                    mDataSource.deleteAccount(accountID);
+
+                    mAccounts.remove(mAccounts.get(position));
+                    notifyDataSetChanged();
+
+                }
+            });
+
+            accountSummaryViewHolder.viewAccount.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Intent intent = new Intent(mContext,TransactionSummaryActivity.class);
+                    intent.putExtra("accountID",mAccounts.get(position).getAccountID());
+
+                    mContext.startActivity(intent);
+                }
+            });
         }
         @Override
         public int getItemCount(){
