@@ -72,7 +72,7 @@ public class TransactionCreationActivity extends AppCompatActivity{
 
 
         if(mDataSource.isEmpty("budgets")){
-            Toast.makeText(this,"There are currently no budgets set up.  Please create a budget before adding transactions",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Testing this update. There are currently no budgets set up.  Please create a budget before adding transactions",Toast.LENGTH_SHORT).show();
             newTransaction.setVisibility(View.GONE);
         }else {
             newTransaction.setVisibility(View.VISIBLE);
