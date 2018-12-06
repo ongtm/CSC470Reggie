@@ -115,3 +115,67 @@
 
 
 </android.support.constraint.ConstraintLayout>
+
+
+
+    <!--<?xml version="1.0" encoding="UTF-8"?>
+
+<android.support.constraint.ConstraintLayout
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--tools:context=".ActivityTransactionCreation"> -->
+
+
+<!--<Buttonandroid:id="@+id/backButton"style="@style/Widget.AppCompat.Button.Borderless.Colored"android:layout_width="0dp"android:layout_height="match_parent"android:layout_weight="1.15"android:text="@string/backButton"android:textSize="13sp"/>-->
+<!--
+
+<EditText android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="16dp"
+    android:id="@+id/Transaction"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:textAlignment="center" android:hint="Enter a new transaction"/>
+
+<EditText android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="16dp"
+    android:id="@+id/transaction_amount"
+    android:textAlignment="center"
+    android:hint="Enter the Transaction Amount"
+    app:layout_constraintTop_toBottomOf="@+id/transaction_creation"/>
+
+<EditText android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="16dp"
+    android:id="@+id/transaction_type"
+    android:textAlignment="center"
+    android:hint="Credit or Debit"
+    app:layout_constraintTop_toBottomOf="@+id/transaction_type"/>
+
+<Button android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_margin="32dp"
+    android:id="@+id/inputTransaction"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.329"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:text="Input Transaction"
+    android:onClick="onClickinputTransaction"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginStart="8dp"
+    style="@style/Widget.AppCompat.Button.Colored"/>
+
+</android.support.constraint.ConstraintLayout> -->

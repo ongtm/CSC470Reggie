@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.TransactionTooLargeException;
 
 import com.example.paul.reggie.database.AccountTypesTable;
 import com.example.paul.reggie.database.AccountsTable;
 import com.example.paul.reggie.database.DBHelper;
+import com.example.paul.reggie.database.TransactionsTable;
 import com.example.paul.reggie.database.UserTable;
 import com.example.paul.reggie.database.BudgetsTable;
 
@@ -183,5 +185,54 @@ public class DataSource {
         mDatabase.delete("accounts","accountID=?",new String []{accountID});
 
     }
+
+    public void deleteAllAccountTransactions(String accountID){
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("transactions","accountID=?", new String[] {accountID});
+    }
+    public void deleteTransaction(String transactionID){
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("transactions","transactionID=?",new String[]{transactionID});
+    }
+
+    public List<Transactions> getTransactions(String accountID) {
+        mDatabase = mDBHelper.getReadableDatabase();
+
+        //how to I use the toString method in the account class to do this
+        Cursor cursor = mDatabase.query("transactions", new String[]{"transactions.transactionID, " +
+                "transactions.accountID, transactions.budgetID, transactions.transactionDate, " +
+                "transactions.transactionDescription, transactions.transactionType, " +
+                "tranasctions.transactionSubtype, transactions.transactionStatus, transactions.transactionAmount"},
+                "accountID=?", new String[] {accountID}, null, null, null);
+
+        List<Transactions> transactions = new ArrayList<>();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            do {
+                Transactions transaction = new Transactions();
+
+                transaction.setTransactionID(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONID)));
+                transaction.setAccountID(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_ACCOUNTID)));
+                transaction.setBudgetID(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_BUDGETID)));
+                transaction.setTransactionDate(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONDATE)));
+                transaction.setTransactionDescription(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONDESCRIPTION)));
+                transaction.setTransactionType(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONTYPE)));
+                transaction.setTransactionSubType(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONSUBTYPE)));
+                transaction.setTransactionStatus(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONSTATUS)));
+                transaction.setTransactionAmount(cursor.getDouble(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONAMOUNT)));
+
+
+                transactions.add(transaction);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return transactions;
+    }
+
+
 }
 

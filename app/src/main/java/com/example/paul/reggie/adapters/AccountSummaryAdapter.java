@@ -55,11 +55,8 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
 
             View thisView = inflater.inflate(R.layout.activity_account_summary,parent,false);
 
-//            int intListSize = getItemCount();
-
-  //          for(int i =0; i < intListSize;i++) {
                 AccountSummaryViewHolder accountSummaryViewHolder = new AccountSummaryViewHolder(thisView);
-    //        }
+
             return accountSummaryViewHolder;
         }
 

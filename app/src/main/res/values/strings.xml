@@ -68,4 +68,6 @@
     <string name="budgetSummaryDeleteBudget">Delete Budget</string>
     <string name="budgetSummaryEditBudget">Edit Budget</string>
     <string name="accountSummaryViewTransactions">View Transactions</string>
+    <string name="addTransactionButton">Add New Transaction</string>
+    <string name="delete_transaction">Delete Transaction</string>
 </resources>
