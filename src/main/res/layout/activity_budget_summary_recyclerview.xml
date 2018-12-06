@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/budget_summary_addnewbudget"
+        android:contentDescription="@string/add_new_budget"
+        app:srcCompat="@drawable/ic_attach_money_black_24dp"
+        android:onClick="onClickAddNewBudget"
+        android:textAlignment="center"
+        android:gravity="end|top"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="8dp">
+    </ImageButton>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/budget_summary_recyclerview"
+        app:layout_constraintTop_toBottomOf="@id/budget_summary_addnewbudget"
+        android:layout_margin="8dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>

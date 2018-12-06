@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountDetailActivity">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/account_detail_transactionID"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/account_detail_accountID"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/account_detail_budgetID"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_date_label"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Transaction Date"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_date"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_date_label"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_date_label"
+        android:text="Current Date"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_amount_label"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/account_detail_transaction_date_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Transaction Amount"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_amount"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_amount_label"
+        app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_amount_label"
+        android:text="$0.00"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_status"
+        android:text="Cleared/UnCleared"
+        app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_amount"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_amount"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:hint="Select transaction status"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_type_label"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/account_detail_transaction_amount_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Transaction Type"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_type"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_type_label"
+        app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_type_label"
+        android:text="Credit/Debit"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_subtype_label"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/account_detail_transaction_type_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Transaction Subtype"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_subtype"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_subtype_label"
+        app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_subtype_label"
+        android:text="Income"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_description_label"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/account_detail_transaction_subtype_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Transaction Description"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_detail_transaction_description"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_description_label"
+        app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_description_label"
+        android:text="Description"/>
+
+
+    <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/account_detail_transaction_deleteTransaction"
+        android:contentDescription="@string/delete_transaction"
+        app:srcCompat="@drawable/ic_delete_black_24dp"
+        app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_description"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="4dp">
+    </ImageButton>
+
+</android.support.constraint.ConstraintLayout>

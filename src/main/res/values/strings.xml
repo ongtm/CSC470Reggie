@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Reggie</string>
+    <!-- Strings related to page functionalities. -->
+    <string name="addButton">Add</string>
+    <string name="editButton">Edit</string>
+    <string name="backButton">Back</string>
+    <string name="accountName">accountName</string>
+    <string name="budgetName">budgetName</string>
+    <string name="budgetsButton">Budgets</string>
+    <string name="accountsButton">Accounts</string>
+    <string name="accountsPage">Accounts</string>
+    <string name="budgetsPage">Budgets</string>
+
+
+    <string name="title_activity_budget_details">BudgetDetailsActivity</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_nav">navActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_label">Create User Login</string>
+    <string name="login_button">Login</string>
+    <string name="username_hint">UserName</string>
+    <string name="pin_hint">Pin Hint</string>
+    <string name="cpin_hint">Pin Hint</string>
+    <string name="prompt_transaction_amount">Amount</string>
+    <string name="prompt_transaction_name">Transaction Name</string>
+    <string name="createTransactionButton">Create</string>
+
+    <string name="prompt_account_name">Account Name</string>
+    <string name="prompt_starting_amount">Starting Amount</string>
+    <string name="createAccountButton">Create Account</string>
+    <string name="cancelAccountButton">Cancel</string>
+    <string name="accountSummaryAccountName">TestAccount</string>
+    <string name="accountSummaryAccountType">Checking/Savings/MoneyMarket</string>
+    <string name="accountSummaryAccountBalance">$1500.00</string>
+    <string name="accountSummaryDeleteAccount">Delete Account</string>
+    <string name="accountSummaryAddNewAccount">Add New Account</string>
+    <string name="accountSummaryCAccountBalance">1500.00</string>
+    <string name="accountSummaryAAccountBalance">1200.00</string>
+    <string name="prompt_account_type">Select Account Type</string>
+    <string name="available_account_balance">Available Account Balance</string>
+    <string name="account_name">Account Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="current_account_balance">Current Account Balance</string>
+
+    <string name="view_budgets_menu">View Budgets</string>
+    <string name="how_to_menu">How to</string>
+    <string name="view_transactions_menu">View Transactions</string>
+
+    <string name="budgetSummaryCBudgetBalance">150.00</string>
+    <string name="budgetSummaryABudgetBalance">120.00</string>
+    <string name="budgetSummaryBudgetName">TestBudget</string>
+    <string name="budgetSummaryDeleteBudget">Delete Budget</string>
+    <string name="budgetSummaryEditBudget">Edit Budget</string>
+    <string name="accountSummaryViewTransactions">View Transactions</string>
+    <string name="addTransactionButton">Add New Transaction</string>
+    <string name="delete_transaction">Delete Transaction</string>
+    <string name="add_new_budget">Add New Budget</string>
+    <string name="update_budget">Update Budget</string>
+    <string name="accountSummaryViewBudgets">View Budgets</string>
+    <string name="current_budget_balance">Current Budget Balance</string>
+</resources>

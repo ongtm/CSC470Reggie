@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/view_budgets_menu"
+        app:showAsAction="never"
+        android:id="@+id/menu_viewBudgets"/>
+
+    <item
+        android:title="@string/view_transactions_menu"
+        app:showAsAction="never"
+        android:id="@+id/menu_viewTransactions"/>
+
+    <item
+        android:title="@string/how_to_menu"
+        app:showAsAction="never"
+        android:id="@+id/menu_howTo"/>
+
+</menu>
