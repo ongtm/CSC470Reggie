@@ -28,9 +28,11 @@ public class AccountDetailActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    String accountID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_accounts_details_recyclerview);
@@ -43,12 +45,12 @@ public class AccountDetailActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        String accountID = getIntent().getStringExtra("accountID");
+        accountID = getIntent().getStringExtra("accountID");
 
         loadTransactions(accountID);
 
         //getAccountName();
-        
+
     }
 
     public void loadTransactions(String accountID) {
@@ -72,7 +74,9 @@ public class AccountDetailActivity extends AppCompatActivity {
 
 
     public void onClickAddNewTransaction (View view){
+
         Intent intent = new Intent(this,TransactionCreationActivity.class);
+        intent.putExtra("accountID",accountID);
         startActivity(intent);
     }
 

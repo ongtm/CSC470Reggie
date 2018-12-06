@@ -7,7 +7,7 @@ public class AccountTypesTable {
 
     //SQL String to create ACCOUNTTYPES Table
     public static final String SQL_CREATE__TABLE_ACCOUNTTYPES = "CREATE TABLE " + TABLE_ACCOUNTTYPES + " (" +
-            COLUMN_ACCOUNTTYPES_ID + " TEXT PRIMARY KEY, " +
+            COLUMN_ACCOUNTTYPES_ID + " TEXT , " +
             COLUMN_ACCOUNTTYPES_NAME + " TEXT " + ");";
 
     //SQL String to Delete AccountTypes Table

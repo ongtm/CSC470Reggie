@@ -15,13 +15,16 @@ public class AccountTypes {
 
     }
 
-    public AccountTypes(String accountType, String accountTypeName){
+    public AccountTypes(String accountTypeID, String accountTypeName){
         //Sets a UUID for a new account type if it does not exist
-        if(accountType == null){
-            accountType = UUID.randomUUID().toString();
+        if(accountTypeID == null){
+            this.accountTypeID = toString().valueOf(System.currentTimeMillis());
+        }else{
+            this.accountTypeID=accountTypeID;
         }
 
-        this.accountTypeID = accountType;
+
+
         this.accountTypeName = accountTypeName;
     }
 

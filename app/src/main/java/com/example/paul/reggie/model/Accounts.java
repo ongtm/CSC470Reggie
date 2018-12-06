@@ -25,10 +25,11 @@ public class Accounts {
                     double accountPendingPayments, double accountPendingDeposits,
                     double accountAvailableBalance){
         if(accountID == null){
-            accountID = UUID.randomUUID().toString();
+            this.accountID = toString().valueOf(System.currentTimeMillis());
+        }else{
+            this.accountID=accountID;
         }
 
-        this.accountID = accountID;
         this.accountName = accountName;
         this.accountType = accountType;
         this.accountCurrentBalance = accountCurrentBalance;

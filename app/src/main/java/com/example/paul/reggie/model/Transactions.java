@@ -28,10 +28,10 @@ public class Transactions {
                         double transactionAmount){
 
         if(transactionID == null){
-            transactionID = UUID.randomUUID().toString();
+            this.transactionID = toString().valueOf(System.currentTimeMillis());
+        }else{
+            this.transactionID = transactionID;
         }
-
-        this.transactionID = transactionID;
         this.accountID = accountID;
         this.budgetID = budgetID;
         this.transactionDate = transactionDate;

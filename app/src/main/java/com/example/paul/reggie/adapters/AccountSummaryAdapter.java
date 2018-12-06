@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.paul.reggie.AccountDetailActivity;
 import com.example.paul.reggie.R;
 import com.example.paul.reggie.TransactionSummaryActivity;
 import com.example.paul.reggie.model.Accounts;
@@ -93,7 +94,7 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
             accountSummaryViewHolder.viewAccount.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    Intent intent = new Intent(mContext,TransactionSummaryActivity.class);
+                    Intent intent = new Intent(mContext, AccountDetailActivity.class);
                     intent.putExtra("accountID",mAccounts.get(position).getAccountID());
 
                     mContext.startActivity(intent);

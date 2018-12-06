@@ -109,7 +109,7 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID, budgets.budgetName, " +
-                "budgets.totalBudgetAmount, budgets.currentBudgetBalance, "}
+                "budgets.totalBudgetAmount, budgets.currentBudgetBalance "}
                 , null, null, null, null, null);
 
         List<Budgets> budgets = new ArrayList<>();
@@ -132,6 +132,7 @@ public class DataSource {
 
         return budgets;
     }
+
 
     public Accounts getAccount(String accountId) {
         mDatabase = mDBHelper.getReadableDatabase();

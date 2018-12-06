@@ -18,10 +18,12 @@ public class TransactionSubTypes {
 
     public TransactionSubTypes(String transactionSubTypeID, String transactionSubTypeName, String transactionType){
         if(transactionSubTypeID == null){
-            transactionSubTypeID = UUID.randomUUID().toString();
+            this.transactionSubTypeID = toString().valueOf(System.currentTimeMillis());
+        }else{
+            this.transactionSubTypeID = transactionSubTypeID;
         }
 
-        this.transactionSubTypeID = transactionSubTypeID;
+
         this.transactionSubTypeName = transactionSubTypeName;
         this.transactionType = transactionType;
     }

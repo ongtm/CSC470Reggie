@@ -21,10 +21,10 @@ public class Budgets {
     public Budgets(String budgetID, String budgetName, double totalBudgetAmount,
                    double currentBudgetBalance){
         if(budgetID == null){
-            budgetID = UUID.randomUUID().toString();
+            this.budgetID = toString().valueOf(System.currentTimeMillis());
+        }else{
+            this.budgetID = budgetID;
         }
-
-        this.budgetID = budgetID;
         this.budgetName = budgetName;
         this.totalBudgetAmount = totalBudgetAmount;
         this.currentBudgetBalance = currentBudgetBalance;

@@ -120,6 +120,7 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
 
             //All edit texts and spinner contain info-save info to database
             Accounts aAccount = new Accounts(null,accountNameS,accountType,startingAmountD,0,0,startingAmountD);
+            Toast.makeText(this,"Account ID is " + aAccount.getAccountID(), Toast.LENGTH_SHORT).show();
             ContentValues contentValues;
             contentValues = aAccount.toAccountsValues();
             mDataSource.onInsert(contentValues,"accounts");

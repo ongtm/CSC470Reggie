@@ -33,7 +33,6 @@
         <activity android:name=".AccountDetailActivity"/>
         <activity android:name=".AccountSummaryActivity"/>
         <activity android:name=".AccountCreationActivity"/>
-        <activity android:name=".BudgetCreationActivity"/>
         <activity android:name=".TransactionCreationActivity"/>
         <activity android:name=".TransactionSummaryActivity"/>
         <activity android:name=".TransactionDetailActivity"/>
