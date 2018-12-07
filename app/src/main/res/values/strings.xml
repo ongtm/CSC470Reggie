@@ -38,7 +38,7 @@
     <string name="pin_hint">Pin Hint</string>
     <string name="cpin_hint">Pin Hint</string>
     <string name="prompt_transaction_amount">Amount</string>
-    <string name="prompt_transaction_name">Transaction Name</string>
+    <string name="prompt_transaction_name">Transaction Description</string>
     <string name="createTransactionButton">Create</string>
 
     <string name="prompt_account_name">Account Name</string>
@@ -68,6 +68,11 @@
     <string name="budgetSummaryDeleteBudget">Delete Budget</string>
     <string name="budgetSummaryEditBudget">Edit Budget</string>
     <string name="accountSummaryViewTransactions">View Transactions</string>
+    <string name="accountSummaryViewBudgets">View Budgets</string>
+    <string name="budgetSummaryAddNewBudget">Add New Budget</string>
+    <string name="current_budget_balance">Current Budget Balance</string>
+    <string name="create_budget">Create Budget</string>
+    <string name="update_budget">Update Budget</string>
     <string name="addTransactionButton">Add New Transaction</string>
     <string name="delete_transaction">Delete Transaction</string>
 </resources>
