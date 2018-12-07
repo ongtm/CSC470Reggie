@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.TransactionTooLargeException;
 
 import com.example.paul.reggie.database.AccountTypesTable;
 import com.example.paul.reggie.database.AccountsTable;
@@ -60,6 +59,11 @@ public class DataSource {
         mDatabase.insert(tableName, null, contentValues);
     }
 
+    public void onUpdate(ContentValues contentValues, String budgets) {
+
+        mDatabase.insert(budgets, null, contentValues);
+    }
+
     public Users getUser() {
         mDatabase = mDBHelper.getReadableDatabase();
         Cursor cursor = mDatabase.query("users", new String[]{"users.username", "users.password"}, null, null, null, null, null);
@@ -109,7 +113,7 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID, budgets.budgetName, " +
-                "budgets.totalBudgetAmount, budgets.currentBudgetBalance "}
+                        "budgets.totalBudgetAmount, budgets.currentBudgetBalance"}
                 , null, null, null, null, null);
 
         List<Budgets> budgets = new ArrayList<>();
@@ -133,13 +137,12 @@ public class DataSource {
         return budgets;
     }
 
-
     public Accounts getAccount(String accountId) {
         mDatabase = mDBHelper.getReadableDatabase();
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("accounts", new String[]{"accounts.accountID, accounts.accountName, " +
-                "accounts.accountType, accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits, " +
+                "accounts.accountType, accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits" +
                 "accounts.availableBalance"}, AccountsTable.COLUMN_ACCOUNTS_ACCOUNTID + "=?", new String[]{String.valueOf(accountId)}, null, null, null);
 
         if (cursor != null) {
@@ -160,6 +163,7 @@ public class DataSource {
 
         return accounts;
     }
+
     public ArrayList<AccountTypes> getAccountTypes(){
         mDatabase = mDBHelper.getReadableDatabase();
         Cursor cursor = mDatabase.query("accountTypes", new String[]{"accountTypes.accountTypeID, accountTypes.accountTypeName"},null,null,null,null,null);
@@ -201,9 +205,9 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("transactions", new String[]{"transactions.transactionID, " +
-                "transactions.accountID, transactions.budgetID, transactions.transactionDate, " +
-                "transactions.transactionDescription, transactions.transactionType, " +
-                "tranasctions.transactionSubtype, transactions.transactionStatus, transactions.transactionAmount"},
+                        "transactions.accountID, transactions.budgetID, transactions.transactionDate, " +
+                        "transactions.transactionDescription, transactions.transactionType, " +
+                        "tranasctions.transactionSubtype, transactions.transactionStatus, transactions.transactionAmount"},
                 "accountID=?", new String[] {accountID}, null, null, null);
 
         List<Transactions> transactions = new ArrayList<>();
@@ -234,6 +238,9 @@ public class DataSource {
         return transactions;
     }
 
+    public void deleteBudget(String budgetID) {
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("budgets","budgetID=?",new String []{budgetID});
+    }
 
 }
-
