@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
         public TextView transactionDescription;
         public TextView transactionType;
         public TextView transactionSubtype;
-        public Spinner transactionStatus;
+        public RadioButton transactionStatus;
         public TextView transactionAmount;
         public ImageButton deleteTransaction;
 

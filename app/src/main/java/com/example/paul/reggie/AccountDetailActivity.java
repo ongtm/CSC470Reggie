@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paul.reggie.adapters.AccountDetailsAdapter;
-import com.example.paul.reggie.adapters.AccountSummaryAdapter;
 import com.example.paul.reggie.model.DataSource;
 import com.example.paul.reggie.model.Transactions;
 
@@ -60,6 +59,7 @@ public class AccountDetailActivity extends AppCompatActivity {
         //Open database link
         mDataSource = new DataSource(this);
         mDataSource.open();
+        Toast.makeText(this,accountID,Toast.LENGTH_SHORT).show();
 
         //Transfer accounts info from database to Array for recylcerview load
         if(mDataSource.isEmpty("transactions") == false) {
@@ -67,7 +67,7 @@ public class AccountDetailActivity extends AppCompatActivity {
 
             //Get items for recyclerview
             AccountDetailsAdapter adapter = new AccountDetailsAdapter(this, mTransactions);
-            mRecyclerView = findViewById(R.id.account_summary_recyclerview);
+            mRecyclerView = findViewById(R.id.account_detail_recyclerview);
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(adapter);

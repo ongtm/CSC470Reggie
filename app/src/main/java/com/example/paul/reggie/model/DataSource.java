@@ -164,20 +164,20 @@ public class DataSource {
         return accounts;
     }
 
-    public ArrayList<AccountTypes> getAccountTypes(){
+    public ArrayList<AccountTypes> getAccountTypes() {
         mDatabase = mDBHelper.getReadableDatabase();
-        Cursor cursor = mDatabase.query("accountTypes", new String[]{"accountTypes.accountTypeID, accountTypes.accountTypeName"},null,null,null,null,null);
+        Cursor cursor = mDatabase.query("accountTypes", new String[]{"accountTypes.accountTypeID, accountTypes.accountTypeName"}, null, null, null, null, null);
 
         ArrayList<AccountTypes> accountTypes = new ArrayList<>();
 
-        if(cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
-            do{
+            do {
                 AccountTypes accountType = new AccountTypes(cursor.getString(cursor.getColumnIndex(AccountTypesTable.COLUMN_ACCOUNTTYPES_ID)),
                         cursor.getString(cursor.getColumnIndex(AccountTypesTable.COLUMN_ACCOUNTTYPES_NAME)));
 
                 accountTypes.add(accountType);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
@@ -185,19 +185,20 @@ public class DataSource {
         return accountTypes;
     }
 
-    public void deleteAccount(String accountID){
+    public void deleteAccount(String accountID) {
         mDatabase = mDBHelper.getWritableDatabase();
-        mDatabase.delete("accounts","accountID=?",new String []{accountID});
+        mDatabase.delete("accounts", "accountID=?", new String[]{accountID});
 
     }
 
-    public void deleteAllAccountTransactions(String accountID){
+    public void deleteAllAccountTransactions(String accountID) {
         mDatabase = mDBHelper.getWritableDatabase();
-        mDatabase.delete("transactions","accountID=?", new String[] {accountID});
+        mDatabase.delete("transactions", "accountID=?", new String[]{accountID});
     }
-    public void deleteTransaction(String transactionID){
+
+    public void deleteTransaction(String transactionID) {
         mDatabase = mDBHelper.getWritableDatabase();
-        mDatabase.delete("transactions","transactionID=?",new String[]{transactionID});
+        mDatabase.delete("transactions", "transactionID=?", new String[]{transactionID});
     }
 
     public List<Transactions> getTransactions(String accountID) {
@@ -207,8 +208,8 @@ public class DataSource {
         Cursor cursor = mDatabase.query("transactions", new String[]{"transactions.transactionID, " +
                         "transactions.accountID, transactions.budgetID, transactions.transactionDate, " +
                         "transactions.transactionDescription, transactions.transactionType, " +
-                        "tranasctions.transactionSubtype, transactions.transactionStatus, transactions.transactionAmount"},
-                "accountID=?", new String[] {accountID}, null, null, null);
+                        "transactions.transactionSubType, transactions.transactionStatus, transactions.transactionAmount"},
+                "accountID=?", new String[]{accountID}, null, null, null);
 
         List<Transactions> transactions = new ArrayList<>();
 
@@ -240,7 +241,24 @@ public class DataSource {
 
     public void deleteBudget(String budgetID) {
         mDatabase = mDBHelper.getWritableDatabase();
-        mDatabase.delete("budgets","budgetID=?",new String []{budgetID});
+        mDatabase.delete("budgets", "budgetID=?", new String[]{budgetID});
     }
 
+    public String getBudgetID(String budgetName) {
+        mDatabase = mDBHelper.getWritableDatabase();
+        Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID"}, "budgetName=?", new String[]{budgetName}, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            //Transactions transaction = new Transactions();
+            Budgets budget = new Budgets();
+            budget.setBudgetID(cursor.getString(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGETS_BUDGETID)));
+
+            String budgetID = budget.getBudgetID();
+
+            return budgetID;
+        }
+        return null;
+    }
 }
