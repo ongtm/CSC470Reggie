@@ -78,8 +78,13 @@
     <string name="select_a_transaction_type">Select a transaction type</string>
     <string name="select_a_transaction_sub_type">Select a transaction sub type</string>
     <string name="select_a_transaction_subtype">Select a transaction subtype</string>
-    <string name="cleared">Cleared</string>
     <string name="select_a_budget">Select a budget</string>
     <string name="add_transaction">Add Transaction</string>
     <string name="create_new_budget">Create New Budget</string>
+    <string name="pending">Pending</string>
+    <string name="cleared">Cleared</string>
+    <string name="pending_payments">Pending Payments</string>
+    <string name="zero">0</string>
+    <string name="pending_deposits">Pending Deposits</string>
+
 </resources>

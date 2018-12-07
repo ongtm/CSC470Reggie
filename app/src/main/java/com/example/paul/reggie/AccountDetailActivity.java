@@ -37,21 +37,18 @@ public class AccountDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_accounts_details_recyclerview);
 
-        accountName = getIntent().getStringExtra("accountName");
-        TextView thisAccountTitle = findViewById(R.id.accountTitle);
-        thisAccountTitle.setText(accountName);
-
-
     }
     @Override
     protected void onStart() {
         super.onStart();
 
+        accountName = getIntent().getStringExtra("accountName");
+        TextView thisAccountTitle = findViewById(R.id.accountTitle);
+        thisAccountTitle.setText(accountName);
+
         accountID = getIntent().getStringExtra("accountID");
 
         loadTransactions(accountID);
-
-        //getAccountName();
 
     }
 

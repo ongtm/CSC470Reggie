@@ -261,4 +261,59 @@ public class DataSource {
         }
         return null;
     }
+
+    public void updateTransactionStatus(String transactionID, String transStatus){
+        mDatabase = mDBHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("transactionStatus",transStatus);
+        mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});
+
+    }
+
+    public void updateAccountTotals(String accountID, String transactionType, String transactionStatus, Double transAmount){
+        mDatabase = mDBHelper.getWritableDatabase();
+
+        Cursor cursor = mDatabase.query("accounts", new String[]{"accounts.accountID, " +
+                "accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits, accounts.availableBalance"},"accountID=?",
+               new String[] {accountID},null,null,null);
+
+        Double oldCBalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_CURRENTBALANCE));
+        Double oldPendingPayments = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGPAYMENTS));
+        Double oldPendingDeposits = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS));
+        Double oldABalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_AVAILABLEBALANCE));
+
+        if(transactionStatus.equals("Cleared")){
+            //update CBalance
+            if(transactionType.equals("Income")){
+                oldCBalance = oldCBalance + transAmount;
+            }else{
+                oldCBalance = oldCBalance - transAmount;
+            }
+        }
+        else{
+            if (transactionType.equals("Income")){
+                oldABalance = oldABalance + transAmount;
+                oldPendingDeposits = oldPendingDeposits + transAmount;
+            }
+            else{
+                oldABalance = oldABalance - transAmount;
+                oldPendingPayments = oldPendingPayments + transAmount;
+            }
+        }
+
+/*        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("transactionStatus",transStatus);
+        mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});*/
+
+        ContentValues contentValues = new ContentValues(4);
+        contentValues.put("currentBalance",oldCBalance);
+        contentValues.put("availableBalance",oldABalance);
+        contentValues.put("pendingDeposits",oldPendingDeposits);
+        contentValues.put("pendingPayments",oldPendingPayments);
+        mDatabase.update("accounts",contentValues,"accountID=?",new String[] {accountID});
+
+
+
+    }
+
 }

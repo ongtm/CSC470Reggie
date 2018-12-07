@@ -94,7 +94,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_type_label"
         app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_type_label"
-        android:text="Credit/Debit"/>
+        android:text="Income/Payment"/>
 
     <TextView
         android:layout_width="wrap_content"

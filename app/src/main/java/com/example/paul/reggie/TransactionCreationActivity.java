@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.paul.reggie.R;
 import com.example.paul.reggie.model.Budgets;
@@ -33,7 +34,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
     Spinner transactionTypeSpinner;
     Spinner transactionSubTypeSpinner;
     Spinner budgetSpinner;
-    RadioButton transactionStatusButton;
+    ToggleButton transactionStatusButton;
     String accountID;
     String budgetName;
     String budgetID;
@@ -78,19 +79,28 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
 
             transactionName = transactionNameEditText.getText().toString();
             transactionAmount = Double.parseDouble(transactionAmountEditText.getText().toString());
-            transactionStatus = transactionStatusButton.getText().toString();
+            Boolean blnToggleState = transactionStatusButton.isChecked();
+            if (blnToggleState==true){
+                transactionStatus = transactionStatusButton.getTextOn().toString();
+            }else{
+                transactionStatus = transactionStatusButton.getTextOff().toString();
+            }
 
-//            Toast.makeText(this,"BudgetName " + budgetName + " type name " + transactionType + " trans subtype " + transactionSubtype,Toast.LENGTH_SHORT).show();
+
             budgetID = mDataSource.getBudgetID(budgetName);
 
             Date thisDate = new Date();
             transactionDate = thisDate.toString();
 
-            Toast.makeText(this,"transaction status is " + transactionStatus,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"BudgetName: " + budgetName + " budgetID: " + budgetID + " type name: " + transactionType +
+                    " trans subtype: " + transactionSubtype + " transaction Status: " + transactionStatus + " Transaction Date: " + transactionDate,
+                    Toast.LENGTH_SHORT).show();
+
             Transactions transaction = new Transactions(null,accountID, budgetID, transactionDate, transactionName,transactionType,transactionSubtype,transactionStatus,transactionAmount);
             ContentValues contentValues;
             contentValues = transaction.toTransactionsValues();
             mDataSource.onInsert(contentValues,"transactions");
+
 
 
         }
@@ -137,7 +147,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
         transactionTypes.add(0,"Income");
         transactionTypes.add(1,"Payment");
 
-        ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,transactionTypes);
+        ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(this,android.R.layout.test_list_item,transactionTypes);
         transactionTypeSpinner = findViewById(R.id.transaction_type_spinner);
         transactionTypeSpinner.setAdapter(typesAdapter);
         transactionTypeSpinner.setOnItemSelectedListener(this);
@@ -150,7 +160,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
         transactionSubTypes.add(3,"Transfer");
         transactionSubTypes.add(4, "Cash");
 
-        ArrayAdapter<String> subTypesAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,transactionSubTypes);
+        ArrayAdapter<String> subTypesAdapter = new ArrayAdapter<>(this,android.R.layout.test_list_item,transactionSubTypes);
         transactionSubTypeSpinner = findViewById(R.id.transaction_subtype_spinner);
         transactionSubTypeSpinner.setAdapter(subTypesAdapter);
         transactionSubTypeSpinner.setOnItemSelectedListener(this);
@@ -171,7 +181,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
                 at.add(budgets.get(i).getBudgetName());
             }
 
-            ArrayAdapter<String> budgetAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, at);
+            ArrayAdapter<String> budgetAdapter = new ArrayAdapter<>(this, android.R.layout.test_list_item, at);
 
             budgetSpinner = findViewById(R.id.transaction_budget_spinner);
             budgetSpinner.setAdapter(budgetAdapter);

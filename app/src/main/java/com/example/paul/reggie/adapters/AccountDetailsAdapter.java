@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.paul.reggie.R;
 import com.example.paul.reggie.model.DataSource;
@@ -35,7 +37,7 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
         public TextView transactionDescription;
         public TextView transactionType;
         public TextView transactionSubtype;
-        public RadioButton transactionStatus;
+        public CompoundButton transactionStatus;
         public TextView transactionAmount;
         public ImageButton deleteTransaction;
 
@@ -83,8 +85,33 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
         String amount = Double.toString(thisTransaction.getTransactionAmount());
         accountDetailsViewHolder.transactionAmount.setText(amount);
 
-        //Spinner needs something different to set and to set on change listener --updates pending/available
-        //accountDetailsViewHolder.transactionStatus.setText(thisTransaction)
+        String transStatus = thisTransaction.getTransactionStatus();
+        if(transStatus.equals("Cleared")){
+            accountDetailsViewHolder.transactionStatus.setChecked(true);
+        }else{
+            accountDetailsViewHolder.transactionStatus.setChecked(false);
+        }
+
+        accountDetailsViewHolder.transactionStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton,boolean isChecked){
+                DataSource mDataSource = new DataSource(mContext);
+                mDataSource.open();
+                String strStatus = mTransactions.get(position).getTransactionStatus();
+                String transactionId = mTransactions.get(position).getTransactionID();
+
+                //save updated value back to table
+                mDataSource.updateTransactionStatus(transactionId, strStatus);
+
+                String accountID = mTransactions.get(position).getAccountID();
+                String transType = mTransactions.get(position).getTransactionType();
+                Double transAmount =mTransactions.get(position).getTransactionAmount();
+
+                mDataSource.updateAccountTotals(accountID,transType,strStatus,transAmount);
+                notifyDataSetChanged();
+
+            }
+        });
 
         accountDetailsViewHolder.deleteTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
