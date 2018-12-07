@@ -54,6 +54,4 @@
             android:text= "@string/cancelAccountButton"
             app:layout_constraintTop_toBottomOf="@id/createAccountButton"
             android:onClick="onClickCancel"/>
-
-
 </android.support.constraint.ConstraintLayout>

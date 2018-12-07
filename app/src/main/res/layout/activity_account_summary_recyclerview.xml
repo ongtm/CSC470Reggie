@@ -2,21 +2,37 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageButton
+    <Button
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/account_summary_addnewaccount"
         android:contentDescription="@string/accountSummaryAddNewAccount"
-        app:srcCompat="@drawable/ic_add_circle_black_24dp"
+        android:text="Add New Account"
         android:onClick="onClickAddNewAccount"
         android:textAlignment="center"
         android:gravity="end|top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="8dp">
-    </ImageButton>
+    </Button>
+
+    <Button
+        android:id="@+id/account_summary_view_budgets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/accountSummaryViewBudgets"
+        android:gravity="end|top"
+        android:onClick="onClickViewBudgets"
+        android:text="@string/budgetsPage"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
