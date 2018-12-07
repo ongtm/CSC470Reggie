@@ -56,48 +56,48 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
         }
 
     }
-        @Override
-        public AccountDetailsAdapter.AccountDetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            View thisView = inflater.inflate(R.layout.activity_accounts_detail,parent,false);
+    @Override
+    public AccountDetailsAdapter.AccountDetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View thisView = inflater.inflate(R.layout.activity_accounts_detail,parent,false);
 
-            AccountDetailsViewHolder accountDetailsViewHolder = new AccountDetailsViewHolder(thisView);
+        AccountDetailsViewHolder accountDetailsViewHolder = new AccountDetailsViewHolder(thisView);
 
-            return accountDetailsViewHolder;
+        return accountDetailsViewHolder;
 
-        }
+    }
 
-        @Override
-        public void onBindViewHolder(AccountDetailsViewHolder accountDetailsViewHolder, final int position){
-            Transactions thisTransaction = mTransactions.get(position);
+    @Override
+    public void onBindViewHolder(AccountDetailsViewHolder accountDetailsViewHolder, final int position){
+        Transactions thisTransaction = mTransactions.get(position);
 
-            accountDetailsViewHolder.transactionID.setText(thisTransaction.getTransactionID());
-            accountDetailsViewHolder.accountID.setText(thisTransaction.getAccountID());
-            accountDetailsViewHolder.budgetID.setText(thisTransaction.getBudgetID());
-            accountDetailsViewHolder.transactionDate.setText(thisTransaction.getTransactionDate());
-            accountDetailsViewHolder.transactionDescription.setText(thisTransaction.getTransactionDescription());
-            accountDetailsViewHolder.transactionType.setText(thisTransaction.getTransactionType());
-            accountDetailsViewHolder.transactionSubtype.setText(thisTransaction.getTransactionSubType());
+        accountDetailsViewHolder.transactionID.setText(thisTransaction.getTransactionID());
+        accountDetailsViewHolder.accountID.setText(thisTransaction.getAccountID());
+        accountDetailsViewHolder.budgetID.setText(thisTransaction.getBudgetID());
+        accountDetailsViewHolder.transactionDate.setText(thisTransaction.getTransactionDate());
+        accountDetailsViewHolder.transactionDescription.setText(thisTransaction.getTransactionDescription());
+        accountDetailsViewHolder.transactionType.setText(thisTransaction.getTransactionType());
+        accountDetailsViewHolder.transactionSubtype.setText(thisTransaction.getTransactionSubType());
 
-            String amount = Double.toString(thisTransaction.getTransactionAmount());
-            accountDetailsViewHolder.transactionAmount.setText(amount);
+        String amount = Double.toString(thisTransaction.getTransactionAmount());
+        accountDetailsViewHolder.transactionAmount.setText(amount);
 
-            //Spinner needs something different to set and to set on change listener --updates pending/available
-            //accountDetailsViewHolder.transactionStatus.setText(thisTransaction)
+        //Spinner needs something different to set and to set on change listener --updates pending/available
+        //accountDetailsViewHolder.transactionStatus.setText(thisTransaction)
 
-            accountDetailsViewHolder.deleteTransaction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DataSource mDataSource = new DataSource(mContext);
-                    mDataSource.open();
-                    String transactionID = mTransactions.get(position).getTransactionID();
-                    mDataSource.deleteTransaction(transactionID);
+        accountDetailsViewHolder.deleteTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataSource mDataSource = new DataSource(mContext);
+                mDataSource.open();
+                String transactionID = mTransactions.get(position).getTransactionID();
+                mDataSource.deleteTransaction(transactionID);
 
-                    mTransactions.remove(mTransactions.get(position));
-                    notifyDataSetChanged();;
-                }
-            });
-        }
+                mTransactions.remove(mTransactions.get(position));
+                notifyDataSetChanged();;
+            }
+        });
+    }
 
 
     @Override

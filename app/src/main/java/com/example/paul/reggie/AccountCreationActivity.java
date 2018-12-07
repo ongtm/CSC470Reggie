@@ -35,8 +35,8 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
         setContentView(R.layout.activity_account_creation);
 
         //Opens database
-            mDataSource = new DataSource(this);
-            mDataSource.open();
+        mDataSource = new DataSource(this);
+        mDataSource.open();
 
         //Checks if accounttypes table has items, if not load them here
         if(mDataSource.isEmpty("accountTypes") == true){
@@ -58,46 +58,46 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
         }
 
         //add account types to spinner from database
-            ArrayList<AccountTypes> accountTypes;
-            accountTypes = mDataSource.getAccountTypes();
+        ArrayList<AccountTypes> accountTypes;
+        accountTypes = mDataSource.getAccountTypes();
 
         ArrayList<String> at = new ArrayList<>();
-            for(int i = 0; i < accountTypes.size(); i++){
-                //Toast.makeText(this,"This is " + accountTypes.get(1).getAccountTypeName(),Toast.LENGTH_LONG).show();
-                at.add(accountTypes.get(i).getAccountTypeName());
-            }
+        for(int i = 0; i < accountTypes.size(); i++){
+            //Toast.makeText(this,"This is " + accountTypes.get(1).getAccountTypeName(),Toast.LENGTH_LONG).show();
+            at.add(accountTypes.get(i).getAccountTypeName());
+        }
 
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,at);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,at);
 
-            Spinner accountTypeSpinner = findViewById(R.id.account_type_creation);
-            accountTypeSpinner.setAdapter(spinnerAdapter);
+        Spinner accountTypeSpinner = findViewById(R.id.account_type_creation);
+        accountTypeSpinner.setAdapter(spinnerAdapter);
 
         //Set onClick Listener for Spinner
-            accountTypeSpinner.setOnItemSelectedListener(this);
+        accountTypeSpinner.setOnItemSelectedListener(this);
 
         //Setting currency filter on startingAmount edit text field
-            EditText startingAmount = findViewById(R.id.starting_amount_creation);
-            //This code line does not work--Debug
-            //startingAmount.setFilters(new InputFilter[] {new CurrencyFormatInputFilter()});
+        EditText startingAmount = findViewById(R.id.starting_amount_creation);
+        //This code line does not work--Debug
+        //startingAmount.setFilters(new InputFilter[] {new CurrencyFormatInputFilter()});
 
-        }
+    }
 
 
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position,long id) {
-            String item = (String)parent.getItemAtPosition(position);
-            accountType= item;
-        }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,long id) {
+        String item = (String)parent.getItemAtPosition(position);
+        accountType= item;
+    }
 
-        @Override
-        public void onNothingSelected(AdapterView<?>parent){
-            //Empty Sub for now
-        }
+    @Override
+    public void onNothingSelected(AdapterView<?>parent){
+        //Empty Sub for now
+    }
 
-        @Override
-        public void onClick(View view){
-         //Empty Sub for now
-        }
+    @Override
+    public void onClick(View view){
+        //Empty Sub for now
+    }
 
     public void onClickCreateAccount(View view) {
         EditText accountName = findViewById(R.id.account_name_creation);
@@ -120,7 +120,6 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
 
             //All edit texts and spinner contain info-save info to database
             Accounts aAccount = new Accounts(null,accountNameS,accountType,startingAmountD,0,0,startingAmountD);
-            Toast.makeText(this,"Account ID is " + aAccount.getAccountID(), Toast.LENGTH_SHORT).show();
             ContentValues contentValues;
             contentValues = aAccount.toAccountsValues();
             mDataSource.onInsert(contentValues,"accounts");
@@ -153,6 +152,5 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
 
 
 }
-
 
 

@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,78 +20,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetDetailActivity extends AppCompatActivity {
-    //Database objects
-    List<Budgets> mBudgets = new ArrayList<>();
-    List<String> budgetId = new ArrayList<>();
-    private DataSource mDataSource;
-
-    //RecyclerView Objects
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_budget_detail);
+    }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater mInflator = getMenuInflater();
+        mInflator.inflate(R.menu.menu_toolbar,menu);
 
-        //Set view to recyclerview
-        setContentView(R.layout.activity_account_summary_recyclerview);
+        return true;
+    }
 
-        //Open database link
-        mDataSource = new DataSource(this);
-        mDataSource.open();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int itemID = item.getItemId();
 
-        //Transfer accounts info from database to Array for recylcerview load
-        if(mDataSource.isEmpty("budgets") == false) {
-            mBudgets = mDataSource.getBudgets();
-
-            //Get items for recyclerview
-            BudgetSummaryAdapter adapter = new BudgetSummaryAdapter(this, mBudgets);
-            mRecyclerView = findViewById(R.id.account_summary_recyclerview);
-            mLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setAdapter(adapter);
-            Toast.makeText(this,"Testing upload to ongtm/CSC470Reggie",Toast.LENGTH_SHORT).show();
+        if(itemID == R.id.menu_viewBudgets){
+            //navigate to score summary
+            startActivity(new Intent(BudgetDetailActivity.this,BudgetSummaryActivity.class));
         }
-        //Set onClick Listeners for onClickDeleteAccount and onClickNewAccount
-
-
-
-
-//        setContentView(R.layout.activity_account_summary);
-
-//        Toast.makeText(this,"This works to here!",Toast.LENGTH_LONG).show();
-    }
-
-
-    public void onClickDeleteBudget(View view){
+        else if (itemID == R.id.menu_howTo){
+            //navigate to about
+            Toast.makeText(this, "This menu item is not operational at this time", Toast.LENGTH_LONG).show();
+        }
+        else{
+            //No action
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 
-    public void onClickEditBudget(View view){
 
-    }
-
-    public void onClickCreateBudget (View view){
-        Intent intent = new Intent(this,BudgetCreationActivity.class);
-        startActivity(intent);
-    }
-    @Override
-    protected void onPause(){
-        super.onPause();
-        mDataSource.close();
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        //mDataSource.open();
-    }
 }
-
 

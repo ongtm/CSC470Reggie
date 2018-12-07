@@ -25,6 +25,12 @@ public class TransactionCreationActivity extends AppCompatActivity{
     DataSource mDataSource;
     Button newTransaction;
     Button goToBudgets;
+    EditText transactionName;
+    EditText transactionAmount;
+    Spinner transactionTypeSpinner;
+    Spinner transactionSubTypeSpinner;
+    Spinner budgetSpinner;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -32,25 +38,20 @@ public class TransactionCreationActivity extends AppCompatActivity{
 
         String accountID = getIntent().getStringExtra("accountID");
         setContentView(R.layout.activity_transaction_creation);
-
-        mDataSource = new DataSource(this);
-        mDataSource.open();
-
-        newTransaction= findViewById(R.id.createTransactionButton);
-        goToBudgets = findViewById(R.id.createBudgetButton_transaction);
-
-        setUpSpinners();
-
     }
 
     private void setUpSpinners() {
+
+        transactionName = findViewById(R.id.transaction_name_creation);
+        transactionAmount = findViewById(R.id.transaction_amount_creation);
+
         //Set TransactionType Spinner
         ArrayList<String> transactionTypes = new ArrayList<>();
         transactionTypes.add(0,"Income");
         transactionTypes.add(1,"Payment");
 
         ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,transactionTypes);
-        Spinner transactionTypeSpinner = findViewById(R.id.transaction_type_spinner);
+        transactionTypeSpinner = findViewById(R.id.transaction_type_spinner);
         transactionTypeSpinner.setAdapter(typesAdapter);
 
         //Set Transactions SubType Spinner
@@ -67,7 +68,7 @@ public class TransactionCreationActivity extends AppCompatActivity{
         clearedSpinner.add(1,"Not Cleared");
 
         ArrayAdapter<String> subTypesAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,transactionSubTypes);
-        Spinner transactionSubTypeSpinner = findViewById(R.id.transaction_subtype_spinner);
+        transactionSubTypeSpinner = findViewById(R.id.transaction_subtype_spinner);
         transactionSubTypeSpinner.setAdapter(subTypesAdapter);
 
 
@@ -89,14 +90,22 @@ public class TransactionCreationActivity extends AppCompatActivity{
 
             ArrayAdapter<String> budgetAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, at);
 
-            Spinner budgetSpinner = findViewById(R.id.transaction_budget_spinner);
+            budgetSpinner = findViewById(R.id.transaction_budget_spinner);
             budgetSpinner.setAdapter(budgetAdapter);
         }
     }
 
     public void onClickCreateNewTransaction(View view){
         //check for values in fields
+        if(isEmpty(transactionName)){
+            Toast.makeText(this,"Please enter a transaction description.",Toast.LENGTH_SHORT).show();
+        }
+        else if(isEmpty(transactionAmount)){
+            Toast.makeText(this,"Please enter a transaction amount.",Toast.LENGTH_SHORT).show();
+        }
+        else{
 
+        }
         //save to database
 
         //notify of change?
@@ -111,5 +120,26 @@ public class TransactionCreationActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-}
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
+        newTransaction= findViewById(R.id.createTransactionButton);
+        goToBudgets = findViewById(R.id.createBudgetButton_transaction);
+
+        setUpSpinners();
+
+    }
+
+    public boolean isEmpty(EditText et) {
+        if (et.getText().toString().trim().length() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+}

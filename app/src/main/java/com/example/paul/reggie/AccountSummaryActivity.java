@@ -72,7 +72,6 @@ public class AccountSummaryActivity extends AppCompatActivity{
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(adapter);
         }
-
     }
 
 
@@ -81,5 +80,8 @@ public class AccountSummaryActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    public void onClickViewBudgets (View view){
+        Intent intent = new Intent(this,BudgetSummaryActivity.class);
+        startActivity(intent);
+    }
 }
-
