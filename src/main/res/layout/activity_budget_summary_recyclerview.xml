@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,6 +18,20 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="8dp">
     </ImageButton>
+
+    <Button
+        android:id="@+id/account_summary_view_accounts"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
+        android:contentDescription="@string/accountSummaryViewAccounts"
+        android:gravity="end|top"
+        android:onClick="onClickViewAccounts"
+        android:text="@string/accountsPage"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

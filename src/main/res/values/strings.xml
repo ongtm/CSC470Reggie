@@ -74,4 +74,5 @@
     <string name="update_budget">Update Budget</string>
     <string name="accountSummaryViewBudgets">View Budgets</string>
     <string name="current_budget_balance">Current Budget Balance</string>
+    <string name="accountSummaryViewAccounts">Accounts</string>
 </resources>

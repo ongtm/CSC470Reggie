@@ -51,7 +51,6 @@ public class BudgetSummaryActivity extends AppCompatActivity {
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(adapter);
-            Toast.makeText(this,"Testing upload to ongtm/CSC470Reggie",Toast.LENGTH_SHORT).show();
         }
         //Set onClick Listeners for onClickDeleteBudget and onClickNewBudget
 
@@ -96,6 +95,12 @@ public class BudgetSummaryActivity extends AppCompatActivity {
 
     public void onClickAddNewBudget(View view) {
         Intent intent = new Intent(this,BudgetCreationActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onClickViewAccounts(View view) {
+        Intent intent = new Intent(this,AccountSummaryActivity.class);
         startActivity(intent);
     }
 

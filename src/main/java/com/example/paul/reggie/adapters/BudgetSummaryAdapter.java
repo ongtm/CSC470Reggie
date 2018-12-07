@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.paul.reggie.BudgetEditActivity;
 import com.example.paul.reggie.BudgetSummaryActivity;
 import com.example.paul.reggie.R;
 import com.example.paul.reggie.TransactionSummaryActivity;
@@ -33,7 +34,7 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
     public static class BudgetSummaryViewHolder extends RecyclerView.ViewHolder {
         public TextView budgetId;
         public TextView budgetTitle;
-        public TextView budgetCBalance;
+        public TextView budgetABalance;
         public ImageButton deleteBudget;
         public ImageButton viewBudget;
 
@@ -42,7 +43,7 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
 
             budgetId = thisView.findViewById(R.id.budget_summary_budgetid);
             budgetTitle = thisView.findViewById(R.id.budget_summary_budgetname);
-            budgetCBalance = thisView.findViewById(R.id.budget_summary_budgetcbalance);
+            budgetABalance = thisView.findViewById(R.id.budget_summary_budgetcbalance);
             viewBudget = thisView.findViewById(R.id.budget_summary_editbudget);
             deleteBudget = thisView.findViewById(R.id.budget_summary_deletebudget);
         }
@@ -68,8 +69,8 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
         budgetSummaryViewHolder.budgetId.setText(thisBudget.getBudgetID());
         budgetSummaryViewHolder.budgetTitle.setText(thisBudget.getBudgetName());
 
-        String cBalance = Double.toString(thisBudget.getCurrentBudgetBalance());
-        budgetSummaryViewHolder.budgetCBalance.setText(cBalance);
+        String aBalance = Double.toString(thisBudget.getCurrentBudgetBalance());
+        budgetSummaryViewHolder.budgetABalance.setText(aBalance);
 
         budgetSummaryViewHolder.deleteBudget.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -89,7 +90,7 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
         budgetSummaryViewHolder.viewBudget.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(mContext,BudgetSummaryActivity.class);
+                Intent intent = new Intent(mContext,BudgetEditActivity.class);
                 intent.putExtra("budgetID",mBudgets.get(position).getBudgetID());
 
                 mContext.startActivity(intent);
