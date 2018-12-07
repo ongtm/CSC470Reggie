@@ -1,6 +1,7 @@
 package com.example.paul.reggie;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,10 +11,11 @@ import android.widget.Toast;
 import com.example.paul.reggie.model.Budgets;
 import com.example.paul.reggie.model.DataSource;
 
-public abstract class BudgetEditActivity extends AppCompatActivity {
+public class BudgetEditActivity extends AppCompatActivity {
 
     private DataSource mDataSource;
     public String budgetName;
+    private String budgetID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,9 @@ public abstract class BudgetEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_budget_edit);
+
+        Intent intent =getIntent();
+        String _id= intent.getStringExtra(budgetID);
 
         //Opens database
         mDataSource = new DataSource(this);
@@ -30,6 +35,9 @@ public abstract class BudgetEditActivity extends AppCompatActivity {
     }
 
     public void onClickUpdateBudget(View view) {
+
+        Intent intent =getIntent();
+        String _id= intent.getStringExtra(budgetID);
         EditText budgetName = findViewById(R.id.budget_name_editcreation);
         EditText startingAmount = findViewById(R.id.budget_amount_editcreation);
 
@@ -43,11 +51,11 @@ public abstract class BudgetEditActivity extends AppCompatActivity {
             Double startingAmountD = Double.parseDouble(startingAmount.getText().toString());
 
             //All edit texts and spinner contain info-save info to database
-            Budgets bBudget = new Budgets(null, budgetNameS, startingAmountD, 0);
+            Budgets bBudget = new Budgets(null, budgetNameS, startingAmountD, startingAmountD);
             ContentValues contentValues;
             contentValues = bBudget.toBudgetsValues();
-            mDataSource.onUpdate(contentValues, "budgets");
-            Toast.makeText(this, "Budget Added", Toast.LENGTH_SHORT).show();
+            mDataSource.onInsert(contentValues, "budgets");
+            Toast.makeText(this, "Budget Updated", Toast.LENGTH_SHORT).show();
 
 
             //Exit back to Budgets Activity

@@ -9,9 +9,9 @@ public class BudgetsTable {
 
     //SQL String for creating Budgets Table
     public static final String SQL_CREATE_TABLE_BUDGETS = "CREATE TABLE " + TABLE_BUDGETS + " (" +
-            COLUMN_BUDGETS_BUDGETID + " TEXT PRIMARY KEY, " +
-            COLUMN_BUDGETS_BUDGETNAME + " TEXT," +
-            COLUMN_BUDGETS_TOTALBUDGETAMOUNT +  " DOUBLE, " +
+            COLUMN_BUDGETS_BUDGETID + " TEXT , " +
+            COLUMN_BUDGETS_BUDGETNAME + " TEXT, " +
+            COLUMN_BUDGETS_TOTALBUDGETAMOUNT + " DOUBLE, " +
             COLUMN_BUDGET_CURRENTBUDGETBALANCE + " DOUBLE " + ");";
 
     //SQL String for deleting Budgets Table

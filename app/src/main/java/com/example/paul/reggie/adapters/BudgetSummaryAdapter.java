@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.paul.reggie.BudgetEditActivity;
 import com.example.paul.reggie.BudgetSummaryActivity;
 import com.example.paul.reggie.R;
-import com.example.paul.reggie.TransactionSummaryActivity;
 import com.example.paul.reggie.model.Budgets;
 import com.example.paul.reggie.model.DataSource;
 
@@ -44,7 +44,7 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
             budgetTitle = thisView.findViewById(R.id.budget_summary_budgetname);
             budgetCBalance = thisView.findViewById(R.id.budget_summary_budgetcbalance);
             viewBudget = thisView.findViewById(R.id.budget_summary_editbudget);
-           deleteBudget = thisView.findViewById(R.id.budget_summary_deletebudget);
+            deleteBudget = thisView.findViewById(R.id.budget_summary_deletebudget);
         }
     }
 
@@ -89,7 +89,13 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
         budgetSummaryViewHolder.viewBudget.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(mContext,BudgetSummaryActivity.class);
+
+                DataSource mDataSource = new DataSource(mContext);
+                mDataSource.open();
+                String budgetID = mBudgets.get(position).getBudgetID();
+                mDataSource.deleteBudget(budgetID);
+
+                Intent intent = new Intent(mContext,BudgetEditActivity.class);
                 intent.putExtra("budgetID",mBudgets.get(position).getBudgetID());
 
                 mContext.startActivity(intent);

@@ -21,10 +21,10 @@ public class Budgets {
     public Budgets(String budgetID, String budgetName, double totalBudgetAmount,
                    double currentBudgetBalance){
         if(budgetID == null){
-            budgetID = UUID.randomUUID().toString();
+            this.budgetID = toString().valueOf(System.currentTimeMillis());
+        }else{
+            this.budgetID = budgetID;
         }
-
-        this.budgetID = budgetID;
         this.budgetName = budgetName;
         this.totalBudgetAmount = totalBudgetAmount;
         this.currentBudgetBalance = currentBudgetBalance;
@@ -63,15 +63,6 @@ public class Budgets {
         this.currentBudgetBalance = currentBudgetBalance;
     }
 
-    public void UpdateBudgets(String budgetID, String budgetName, double totalBudgetAmount, double currentBudgetBalance) {
-
-        if(budgetID == this.budgetID){
-        this.budgetName = budgetName;
-        this.totalBudgetAmount = totalBudgetAmount;
-        this.currentBudgetBalance = currentBudgetBalance;}
-
-    }
-
     //Method for implementing insertions into the Budgets table
     public ContentValues toBudgetsValues(){
         ContentValues budgetValues = new ContentValues(4);
@@ -89,7 +80,7 @@ public class Budgets {
     public String toString(){
         return  "Budgets {" +
                 " budgetID = '" + budgetID + '\'' +
-                ", budgetTitle = '" + budgetName + '\'' +
+                ", budgetName = '" + budgetName + '\'' +
                 ", totalBudgetAmount = '" + totalBudgetAmount + '\'' +
                 ", currentBudgetBalance = '" + currentBudgetBalance + '\'' +
                 '}';

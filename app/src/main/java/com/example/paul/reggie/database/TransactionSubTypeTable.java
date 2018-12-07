@@ -8,7 +8,7 @@ public class TransactionSubTypeTable {
 
     //SQL String for creating TransactionSubTypeTable
     public static final String SQL_CREATE_TABLE_TRANSACTIONSUBTYPE = "CREATE TABLE " +  TABLE_TRANSACTIONSUBTYPE + " (" +
-            COLUMN_TRANSACTIONSUBTYPE_SUBTYPEID + " TEXT PRIMARY KEY, " +
+            COLUMN_TRANSACTIONSUBTYPE_SUBTYPEID + " TEXT, " +
             COLUMN_TRANSACTIONSUBTYPE_SUBTYPENAME + " TEXT, " +
             COLUMN_TRANSACTIONSUBTYPE_TRANSACTIONTYPE + " TEXT " + ");";
 

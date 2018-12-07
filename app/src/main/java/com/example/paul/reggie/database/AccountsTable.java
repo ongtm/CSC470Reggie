@@ -12,7 +12,7 @@ public class AccountsTable {
 
     //SQL String to create Accounts Table
     public static final String SQL_CREATE_TABLE_ACCOUNTS = "CREATE TABLE " + TABLE_ACCOUNTS + " (" +
-            COLUMN_ACCOUNTS_ACCOUNTID + " TEXT PRIMARY KEY, " +
+            COLUMN_ACCOUNTS_ACCOUNTID + " TEXT , " +
             COLUMN_ACCOUNTS_ACCOUNTNAME + " TEXT," +
             COLUMN_ACCOUNTS_ACCOUNTTYPE + " TEXT, " +
             COLUMN_ACCOUNTS_CURRENTBALANCE + " DOUBLE, " +

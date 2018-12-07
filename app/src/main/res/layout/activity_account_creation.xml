@@ -3,43 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    ><!--tools:context=".AccountCreationActivity">-->
-
-    <!-- Constraint layout handles everything we need here by setting the correct constraints of the views in relation to each other-->
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="6">-->
-
-        <!-- We should implement the buttons here as items on the menu bar-->
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".55"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <Button
-                android:id="@+id/backButton"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.15"
-                android:text="@string/backButton"
-                android:textSize="13sp"/>
-
-        </LinearLayout>-->
-
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
-            android:layout_marginTop="40sp">-->
+    android:layout_height="match_parent">
 
         <EditText
             android:layout_width="match_parent"
@@ -90,9 +54,4 @@
             android:text= "@string/cancelAccountButton"
             app:layout_constraintTop_toBottomOf="@id/createAccountButton"
             android:onClick="onClickCancel"/>
-
-
-        <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->
 </android.support.constraint.ConstraintLayout>

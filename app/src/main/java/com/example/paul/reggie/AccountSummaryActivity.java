@@ -19,8 +19,6 @@ import java.util.List;
 @SuppressWarnings("MagicConstant")
 public class AccountSummaryActivity extends AppCompatActivity{
 
-
-
     //Database objects
     List<Accounts> mAccounts = new ArrayList<>();
     List<String> accountId = new ArrayList<>();
@@ -36,50 +34,8 @@ public class AccountSummaryActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-
-
         //Set view to recyclerview
         setContentView(R.layout.activity_account_summary_recyclerview);
-//        loadAccounts();
-
-
-    }
-
-    public void loadAccounts() {
-        //Open database link
-        mDataSource = new DataSource(this);
-        mDataSource.open();
-
-        //Transfer accounts info from database to Array for recylcerview load
-        if(mDataSource.isEmpty("accounts") == false) {
-            mAccounts = mDataSource.getAccounts();
-
-            //Get items for recyclerview
-            AccountSummaryAdapter adapter = new AccountSummaryAdapter(this, mAccounts);
-            mRecyclerView = findViewById(R.id.account_summary_recyclerview);
-            mLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setAdapter(adapter);
-        }
-        //Set onClick Listeners for onClickDeleteAccount and onClickNewAccount
-
-        //OnClick Listener for View button recyclerview
-
-
-//        setContentView(R.layout.activity_account_summary);
-
-//        Toast.makeText(this,"This works to here!",Toast.LENGTH_LONG).show();
-    }
-
-
-    public void onClickAddNewAccount (View view){
-        Intent intent = new Intent(this,AccountCreationActivity.class);
-        startActivity(intent);
-    }
-
-    public void onClickViewBudgets (View view){
-        Intent intent = new Intent(this,BudgetSummaryActivity.class);
-        startActivity(intent);
     }
     @Override
     protected void onPause(){
@@ -100,6 +56,32 @@ public class AccountSummaryActivity extends AppCompatActivity{
         loadAccounts();
     }
 
+    public void loadAccounts() {
+        //Open database link
+        mDataSource = new DataSource(this);
+        mDataSource.open();
 
+        //Transfer accounts info from database to Array for recylcerview load
+        if(mDataSource.isEmpty("accounts") == false) {
+            mAccounts = mDataSource.getAccounts();
+
+            //Get items for recyclerview
+            AccountSummaryAdapter adapter = new AccountSummaryAdapter(this, mAccounts);
+            mRecyclerView = findViewById(R.id.account_summary_recyclerview);
+            mLayoutManager = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setAdapter(adapter);
+        }
+    }
+
+
+    public void onClickAddNewAccount (View view){
+        Intent intent = new Intent(this,AccountCreationActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickViewBudgets (View view){
+        Intent intent = new Intent(this,BudgetSummaryActivity.class);
+        startActivity(intent);
+    }
 }
-

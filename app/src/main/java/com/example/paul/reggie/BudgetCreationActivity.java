@@ -60,7 +60,7 @@ public class BudgetCreationActivity extends AppCompatActivity {
             Toast.makeText(this, "Budget Added", Toast.LENGTH_SHORT).show();
 
 
-            //Exit back to Budgets Activity
+            //Exit back to calling Activity
             this.finish();
         }
 

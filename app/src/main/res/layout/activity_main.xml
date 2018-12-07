@@ -25,8 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.15"
                 android:text="@string/budgetsButton"
-                android:textSize="13sp"
-                tools:ignore="NestedWeights" />
+                android:textSize="13sp"/>
             <TextView
                 android:gravity="center"
                 android:textAlignment="center"

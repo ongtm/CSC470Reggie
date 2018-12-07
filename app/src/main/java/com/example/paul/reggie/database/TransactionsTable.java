@@ -14,7 +14,7 @@ public class TransactionsTable {
 
     //SQL string for creating transactions table
     public static final String SQL_CREATE_TABLE_TRANSACTIONS = "CREATE TABLE " + TABLE_TRANSACTIONS + " (" +
-            COLUMN_TRANSACTIONS_TRANSACTIONID + " TEXT PRIMARY KEY, " +
+            COLUMN_TRANSACTIONS_TRANSACTIONID + " TEXT, " +
             COLUMN_TRANSACTIONS_ACCOUNTID + " TEXT, " +
             COLUMN_TRANSACTIONS_BUDGETID + " TEXT, " +
             COLUMN_TRANSACTIONS_TRANSACTIONDATE + " TEXT, " +

@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.paul.reggie.database.AccountTypesTable;
 import com.example.paul.reggie.database.AccountsTable;
 import com.example.paul.reggie.database.DBHelper;
+import com.example.paul.reggie.database.TransactionsTable;
 import com.example.paul.reggie.database.UserTable;
 import com.example.paul.reggie.database.BudgetsTable;
 
@@ -58,9 +59,9 @@ public class DataSource {
         mDatabase.insert(tableName, null, contentValues);
     }
 
-    public void onUpdate(ContentValues contentValues, String budgets) {
+    public void onUpdate(ContentValues contentValues, String budgets, String budgetID) {
 
-        mDatabase.insert(budgets, null, contentValues);
+        mDatabase.update(budgets,contentValues,"budgetID = ?", new String[]{budgetID});
     }
 
     public Users getUser() {
@@ -112,7 +113,7 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID, budgets.budgetName, " +
-                "budgets.totalBudgetAmount, budgets.currentBudgetBalance"}
+                        "budgets.totalBudgetAmount, budgets.currentBudgetBalance"}
                 , null, null, null, null, null);
 
         List<Budgets> budgets = new ArrayList<>();
@@ -141,7 +142,7 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("accounts", new String[]{"accounts.accountID, accounts.accountName, " +
-                "accounts.accountType, accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits, " +
+                "accounts.accountType, accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits" +
                 "accounts.availableBalance"}, AccountsTable.COLUMN_ACCOUNTS_ACCOUNTID + "=?", new String[]{String.valueOf(accountId)}, null, null, null);
 
         if (cursor != null) {
@@ -162,20 +163,21 @@ public class DataSource {
 
         return accounts;
     }
-    public ArrayList<AccountTypes> getAccountTypes(){
+
+    public ArrayList<AccountTypes> getAccountTypes() {
         mDatabase = mDBHelper.getReadableDatabase();
-        Cursor cursor = mDatabase.query("accountTypes", new String[]{"accountTypes.accountTypeID, accountTypes.accountTypeName"},null,null,null,null,null);
+        Cursor cursor = mDatabase.query("accountTypes", new String[]{"accountTypes.accountTypeID, accountTypes.accountTypeName"}, null, null, null, null, null);
 
         ArrayList<AccountTypes> accountTypes = new ArrayList<>();
 
-        if(cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
-            do{
+            do {
                 AccountTypes accountType = new AccountTypes(cursor.getString(cursor.getColumnIndex(AccountTypesTable.COLUMN_ACCOUNTTYPES_ID)),
                         cursor.getString(cursor.getColumnIndex(AccountTypesTable.COLUMN_ACCOUNTTYPES_NAME)));
 
                 accountTypes.add(accountType);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
@@ -183,17 +185,135 @@ public class DataSource {
         return accountTypes;
     }
 
-    public void deleteAccount(String accountID){
+    public void deleteAccount(String accountID) {
         mDatabase = mDBHelper.getWritableDatabase();
-        mDatabase.delete("accounts","accountID=?",new String []{accountID});
+        mDatabase.delete("accounts", "accountID=?", new String[]{accountID});
 
+    }
+
+    public void deleteAllAccountTransactions(String accountID) {
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("transactions", "accountID=?", new String[]{accountID});
+    }
+
+    public void deleteTransaction(String transactionID) {
+        mDatabase = mDBHelper.getWritableDatabase();
+        mDatabase.delete("transactions", "transactionID=?", new String[]{transactionID});
+    }
+
+    public List<Transactions> getTransactions(String accountID) {
+        mDatabase = mDBHelper.getReadableDatabase();
+
+        //how to I use the toString method in the account class to do this
+        Cursor cursor = mDatabase.query("transactions", new String[]{"transactions.transactionID, " +
+                        "transactions.accountID, transactions.budgetID, transactions.transactionDate, " +
+                        "transactions.transactionDescription, transactions.transactionType, " +
+                        "transactions.transactionSubType, transactions.transactionStatus, transactions.transactionAmount"},
+                "accountID=?", new String[]{accountID}, null, null, null);
+
+        List<Transactions> transactions = new ArrayList<>();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            do {
+                Transactions transaction = new Transactions();
+
+                transaction.setTransactionID(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONID)));
+                transaction.setAccountID(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_ACCOUNTID)));
+                transaction.setBudgetID(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_BUDGETID)));
+                transaction.setTransactionDate(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONDATE)));
+                transaction.setTransactionDescription(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONDESCRIPTION)));
+                transaction.setTransactionType(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTIONS_TRANSACTIONTYPE)));
+                transaction.setTransactionSubType(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONSUBTYPE)));
+                transaction.setTransactionStatus(cursor.getString(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONSTATUS)));
+                transaction.setTransactionAmount(cursor.getDouble(cursor.getColumnIndex(TransactionsTable.COLUMN_TRANSACTION_TRANSACTIONAMOUNT)));
+
+
+                transactions.add(transaction);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return transactions;
     }
 
     public void deleteBudget(String budgetID) {
         mDatabase = mDBHelper.getWritableDatabase();
-        mDatabase.delete("budgets","budgetID=?",new String []{budgetID});
+        mDatabase.delete("budgets", "budgetID=?", new String[]{budgetID});
     }
 
+    public String getBudgetID(String budgetName) {
+        mDatabase = mDBHelper.getWritableDatabase();
+        Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID"}, "budgetName=?", new String[]{budgetName}, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+
+            //Transactions transaction = new Transactions();
+            Budgets budget = new Budgets();
+            budget.setBudgetID(cursor.getString(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGETS_BUDGETID)));
+
+            String budgetID = budget.getBudgetID();
+
+            return budgetID;
+        }
+        return null;
+    }
+
+    public void updateTransactionStatus(String transactionID, String transStatus){
+        mDatabase = mDBHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("transactionStatus",transStatus);
+        mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});
+
+    }
+
+    public void updateAccountTotals(String accountID, String transactionType, String transactionStatus, Double transAmount){
+        mDatabase = mDBHelper.getWritableDatabase();
+
+        Cursor cursor = mDatabase.query("accounts", new String[]{"accounts.accountID, " +
+                "accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits, accounts.availableBalance"},"accountID=?",
+               new String[] {accountID},null,null,null);
+
+        Double oldCBalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_CURRENTBALANCE));
+        Double oldPendingPayments = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGPAYMENTS));
+        Double oldPendingDeposits = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS));
+        Double oldABalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_AVAILABLEBALANCE));
+
+        if(transactionStatus.equals("Cleared")){
+            //update CBalance
+            if(transactionType.equals("Income")){
+                oldCBalance = oldCBalance + transAmount;
+            }else{
+                oldCBalance = oldCBalance - transAmount;
+            }
+        }
+        else{
+            if (transactionType.equals("Income")){
+                oldABalance = oldABalance + transAmount;
+                oldPendingDeposits = oldPendingDeposits + transAmount;
+            }
+            else{
+                oldABalance = oldABalance - transAmount;
+                oldPendingPayments = oldPendingPayments + transAmount;
+            }
+        }
+
+/*        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("transactionStatus",transStatus);
+        mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});*/
+
+        ContentValues contentValues = new ContentValues(4);
+        contentValues.put("currentBalance",oldCBalance);
+        contentValues.put("availableBalance",oldABalance);
+        contentValues.put("pendingDeposits",oldPendingDeposits);
+        contentValues.put("pendingPayments",oldPendingPayments);
+        mDatabase.update("accounts",contentValues,"accountID=?",new String[] {accountID});
+
+
+
+    }
 
 }
-

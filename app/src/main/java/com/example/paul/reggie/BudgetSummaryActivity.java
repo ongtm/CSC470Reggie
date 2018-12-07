@@ -18,6 +18,7 @@ import java.util.List;
 
 public class BudgetSummaryActivity extends AppCompatActivity {
 
+    private static final String ID_EXTRA = "com.example.paul.reggie.budgetID";
     //Database objects
     List<Budgets> mBudgets = new ArrayList<>();
     List<String> budgetID = new ArrayList<>();
@@ -51,7 +52,6 @@ public class BudgetSummaryActivity extends AppCompatActivity {
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
             mRecyclerView.setAdapter(adapter);
-            Toast.makeText(this,"Testing upload to ongtm/CSC470Reggie",Toast.LENGTH_SHORT).show();
         }
         //Set onClick Listeners for onClickDeleteBudget and onClickNewBudget
 
@@ -89,14 +89,19 @@ public class BudgetSummaryActivity extends AppCompatActivity {
 //        Toast.makeText(this,"This works to here!",Toast.LENGTH_LONG).show();
     }
 
-    public void onClickEditBudget(View view) {
+    public void onClickEditBudget(View view,int position, int id) {
+
         Intent intent = new Intent(this,BudgetEditActivity.class);
+        intent.putExtra(ID_EXTRA,String.valueOf(id));
         startActivity(intent);
     }
 
     public void onClickAddNewBudget(View view) {
         Intent intent = new Intent(this,BudgetCreationActivity.class);
         startActivity(intent);
+    }
+
+    public void onClickEditBudget(View view) {
     }
 
     public void onClickDeleteBudget(View view) {
