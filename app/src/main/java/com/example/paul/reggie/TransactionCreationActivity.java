@@ -101,9 +101,9 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
             String transactionID = transaction.getTransactionID();
             String methodType = "new";
             mDataSource.updateAccountTotals(accountID,transactionType,transactionStatus,transactionAmount,transactionID,methodType);
-            if(transactionStatus.equals("Cleared")) {
-                mDataSource.updateBudgetTotal(budgetID, transactionType, transactionAmount);
-            }
+     /*       if(transactionStatus.equals("Cleared")) {
+                mDataSource.updateBudgetTotal(budgetID,transactionType,transactionStatus,transactionAmount,"update");
+            }*/
             Toast.makeText(this,"Transaction Added",Toast.LENGTH_SHORT).show();
             finish();
         }

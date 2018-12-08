@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.paul.reggie.model.AccountTypes;
 import com.example.paul.reggie.model.Accounts;
+import com.example.paul.reggie.model.Budgets;
 import com.example.paul.reggie.model.DataSource;
 
 import java.util.ArrayList;
@@ -77,8 +78,6 @@ public class AccountCreationActivity extends AppCompatActivity implements Adapte
 
         //Setting currency filter on startingAmount edit text field
         EditText startingAmount = findViewById(R.id.starting_amount_creation);
-        //This code line does not work--Debug
-        //startingAmount.setFilters(new InputFilter[] {new CurrencyFormatInputFilter()});
 
     }
 

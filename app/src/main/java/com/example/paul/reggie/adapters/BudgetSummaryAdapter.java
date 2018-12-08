@@ -34,6 +34,7 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
         public TextView budgetId;
         public TextView budgetTitle;
         public TextView budgetCBalance;
+        public TextView budgetABalance;
         public ImageButton deleteBudget;
         public ImageButton viewBudget;
 
@@ -43,6 +44,7 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
             budgetId = thisView.findViewById(R.id.budget_summary_budgetid);
             budgetTitle = thisView.findViewById(R.id.budget_summary_budgetname);
             budgetCBalance = thisView.findViewById(R.id.budget_summary_budgetcbalance);
+            budgetABalance = thisView.findViewById(R.id.budget_summary_budgetabalance);
             viewBudget = thisView.findViewById(R.id.budget_summary_editbudget);
             deleteBudget = thisView.findViewById(R.id.budget_summary_deletebudget);
         }
@@ -68,8 +70,11 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
         budgetSummaryViewHolder.budgetId.setText(thisBudget.getBudgetID());
         budgetSummaryViewHolder.budgetTitle.setText(thisBudget.getBudgetName());
 
-        String cBalance = Double.toString(thisBudget.getCurrentBudgetBalance());
+        String cBalance = Double.toString(thisBudget.getTotalBudgetAmount());
+        String aBalance = Double.toString(thisBudget.getCurrentBudgetBalance());
+
         budgetSummaryViewHolder.budgetCBalance.setText(cBalance);
+        budgetSummaryViewHolder.budgetABalance.setText(aBalance);
 
         budgetSummaryViewHolder.deleteBudget.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -91,8 +96,12 @@ public class BudgetSummaryAdapter extends RecyclerView.Adapter<BudgetSummaryAdap
             public void onClick(View view){
                 Intent intent = new Intent(mContext,BudgetEditActivity.class);
                 intent.putExtra("budgetID",mBudgets.get(position).getBudgetID());
+                intent.putExtra("budgetName",mBudgets.get(position).getBudgetName());
+                intent.putExtra("budgetTAmount",mBudgets.get(position).getTotalBudgetAmount());
+                intent.putExtra("budgetCAmount",mBudgets.get(position).getCurrentBudgetBalance());
 
                 mContext.startActivity(intent);
+                notifyDataSetChanged();
             }
         });
 

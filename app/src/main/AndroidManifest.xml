@@ -23,13 +23,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <!--<activity android:name=".BudgetDetailActivity" />-->
         <!--<activity
             android:name=".navActivity"
             android:label="@string/title_activity_nav"
             android:theme="@style/AppTheme" />-->
         <activity android:name=".BudgetSummaryActivity" />
         <activity android:name=".BudgetCreationActivity"/>
+        <activity android:name=".BudgetEditActivity"/>
         <activity android:name=".AccountDetailActivity"/>
         <activity android:name=".AccountSummaryActivity"/>
         <activity android:name=".AccountCreationActivity"/>

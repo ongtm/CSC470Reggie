@@ -84,7 +84,7 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
         String amount = Double.toString(thisTransaction.getTransactionAmount());
         accountDetailsViewHolder.transactionAmount.setText(amount);
 
-        String transStatus = thisTransaction.getTransactionStatus();
+        final String transStatus = thisTransaction.getTransactionStatus();
         if(transStatus.equals("Cleared")){
             accountDetailsViewHolder.transactionStatus.setChecked(true);
         }else{
@@ -117,6 +117,7 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
                 Double transAmount =mTransactions.get(position).getTransactionAmount();
                 String methodType = "update";
                 mDataSource.updateAccountTotals(accountID,transType,strStatus,transAmount,transactionId,methodType);
+                //mDataSource.updateBudgetTotal(accountID,transType,strStatus,transAmount,methodType);
                 String newStatus = mTransactions.get(position).getTransactionStatus();
 
             }
@@ -136,6 +137,11 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
                 String methodType = "delete";
 
                 mDataSource.updateAccountTotals(accountID,transType,transStatus,transAmount,transactionID,methodType);
+                /*if(transStatus.equals("Cleared")){
+                    String budgetID = mTransactions.get(position).getBudgetID();
+                    methodType="delete";
+                    mDataSource.updateBudgetTotal(budgetID,transType,transStatus,transAmount,methodType);
+                }*/
 
                 mDataSource.deleteTransaction(transactionID);
 

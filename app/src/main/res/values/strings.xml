@@ -4,8 +4,8 @@
     <string name="addButton">Add</string>
     <string name="editButton">Edit</string>
     <string name="backButton">Back</string>
-    <string name="accountName">accountName</string>
-    <string name="budgetName">budgetName</string>
+    <string name="accountName">Account Name</string>
+    <string name="budgetName">Budget Name</string>
     <string name="budgetsButton">Budgets</string>
     <string name="accountsButton">Accounts</string>
     <string name="accountsPage">Accounts</string>

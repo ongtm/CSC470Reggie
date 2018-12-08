@@ -65,7 +65,7 @@ public class AccountSummaryAdapter extends RecyclerView.Adapter<AccountSummaryAd
         Accounts thisAccount = mAccounts.get(position);
 
         //accountSummaryViewHolder.accountId.setText(thisAccount.getAccountID());
-        accountSummaryViewHolder.accountTitle.setText(thisAccount.getAccountID());
+        accountSummaryViewHolder.accountTitle.setText(thisAccount.getAccountName());
         accountSummaryViewHolder.accountType.setText(thisAccount.getAccountType());
 
         String cBalance = Double.toString(thisAccount.getAccountCurrentBalance());

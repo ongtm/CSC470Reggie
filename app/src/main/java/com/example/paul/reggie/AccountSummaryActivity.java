@@ -1,5 +1,6 @@
 package com.example.paul.reggie;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.View;
 
 import com.example.paul.reggie.adapters.AccountSummaryAdapter;
 import com.example.paul.reggie.model.Accounts;
+import com.example.paul.reggie.model.Budgets;
 import com.example.paul.reggie.model.DataSource;
 
 import java.util.ArrayList;
@@ -36,6 +38,18 @@ public class AccountSummaryActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         //Set view to recyclerview
         setContentView(R.layout.activity_account_summary_recyclerview);
+
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
+        //Check for a budget account, if none add general budget
+        if(mDataSource.isEmpty("budgets")==true){
+            Budgets newBudget = new Budgets(null,"General Budget",0,0);
+            ContentValues contentValues;
+            contentValues=newBudget.toBudgetsValues();
+            mDataSource.onInsert(contentValues,"budgets");
+        }
+
     }
     @Override
     protected void onPause(){

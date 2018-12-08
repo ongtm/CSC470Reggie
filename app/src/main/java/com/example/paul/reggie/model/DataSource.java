@@ -61,9 +61,10 @@ public class DataSource {
     }
 
     //This method is incorrect, we need to use the commented method instead
-    public void onUpdate(ContentValues contentValues, String budgets) {
+    public void onUpdateBudget(ContentValues contentValues, String tableName, String budgetID) {
 
-        mDatabase.insert(budgets, null, contentValues);
+        mDatabase.update(tableName,contentValues,"budgetID=?",new String[]{budgetID});
+
     }
 
     public Users getUser() {
@@ -251,6 +252,14 @@ public class DataSource {
     public void deleteBudget(String budgetID) {
         mDatabase = mDBHelper.getWritableDatabase();
         mDatabase.delete("budgets", "budgetID=?", new String[]{budgetID});
+
+        String gBudgetID = getBudgetID("General Budget");
+
+        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("budgetID",gBudgetID);
+        mDatabase.update("budgets",contentValues,"budgetID=?",new String [] {budgetID});
+
+
     }
 
     public String getBudgetID(String budgetName) {
@@ -280,21 +289,39 @@ public class DataSource {
 
     }
 
-    public void updateBudgetTotal(String budgetID, String transactionType, Double transctionAmount){
+    public void updateBudgetTotal(String budgetID, String transactionType, String transactionStatus, Double transactionAmount,String methodType){
         mDatabase = mDBHelper.getWritableDatabase();
 
-        Cursor cursor = mDatabase.query("budgets", new String[] {"budgets.budgetID, budgets.currentBudgetBalance"}, "budgetID=?",new String[] {budgetID},null,null,null);
-        Double oldBBalance = cursor.getDouble(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGET_CURRENTBUDGETBALANCE));
+        Cursor cursor = mDatabase.query("budgets", new String[]{"budgets.budgetID, budgets.currentBudgetBalance"}, "budgetID=?", new String[]{budgetID}, null, null, null);
 
-        if(transactionType.equals("Deposit")){
-            oldBBalance = oldBBalance + transctionAmount;
-        }else{
-            oldBBalance = oldBBalance - transctionAmount;
+        if(cursor.getCount() !=0) {
+
+            Double oldBBalance = cursor.getDouble(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGET_CURRENTBUDGETBALANCE));
+
+            if (methodType.equals("update") && transactionStatus.equals("Cleared")) {
+                if (transactionType.equals("Deposit")) {
+                    oldBBalance = oldBBalance + transactionAmount;
+                } else {
+                    oldBBalance = oldBBalance - transactionAmount;
+                }
+            } else if (methodType.equals("update") && transactionStatus.equals("Pending")) {
+                if (transactionType.equals("Deposit")) {
+                    oldBBalance = oldBBalance - transactionAmount;
+                } else {
+                    oldBBalance = oldBBalance + transactionAmount;
+                }
+            } else if (methodType.equals("delete") && transactionStatus.equals("Cleared")) {
+                if (transactionType.equals("Deposit")) {
+                    oldBBalance = oldBBalance - transactionAmount;
+                } else {
+                    oldBBalance = oldBBalance + transactionAmount;
+                }
+            }
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put("currentBudgetBalance", oldBBalance);
+            mDatabase.update("budgets", contentValues, "budgetID=?", new String[]{budgetID});
         }
-
-        ContentValues contentValues = new ContentValues(1);
-        contentValues.put("currentBudgetBalance",oldBBalance);
-        mDatabase.update("budgets",contentValues,"budgetID=?", new String[] {budgetID});
+        cursor.close();
     }
 
     public void updateAccountTotals(String accountID, String transactionType, String transactionStatus, Double transAmount, String transactionID,String methodType){
