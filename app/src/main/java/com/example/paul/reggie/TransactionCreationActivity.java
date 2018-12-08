@@ -66,6 +66,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
 
 
     public void onClickCreateNewTransaction(View view){
+        Toast.makeText(this,"account id " + accountID,Toast.LENGTH_SHORT).show();
         //check for values in fields
         if(isEmpty(transactionNameEditText)){
             Toast.makeText(this,"Please enter a transaction description.",Toast.LENGTH_SHORT).show();
@@ -92,24 +93,22 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
             Date thisDate = new Date();
             transactionDate = thisDate.toString();
 
-            Toast.makeText(this,"BudgetName: " + budgetName + " budgetID: " + budgetID + " type name: " + transactionType +
-                    " trans subtype: " + transactionSubtype + " transaction Status: " + transactionStatus + " Transaction Date: " + transactionDate,
-                    Toast.LENGTH_SHORT).show();
-
             Transactions transaction = new Transactions(null,accountID, budgetID, transactionDate, transactionName,transactionType,transactionSubtype,transactionStatus,transactionAmount);
             ContentValues contentValues;
             contentValues = transaction.toTransactionsValues();
             mDataSource.onInsert(contentValues,"transactions");
 
-
-
+            String transactionID = transaction.getTransactionID();
+            String methodType = "new";
+            mDataSource.updateAccountTotals(accountID,transactionType,transactionStatus,transactionAmount,transactionID,methodType);
+            if(transactionStatus.equals("Cleared")) {
+                mDataSource.updateBudgetTotal(budgetID, transactionType, transactionAmount);
+            }
+            Toast.makeText(this,"Transaction Added",Toast.LENGTH_SHORT).show();
+            finish();
         }
-        //save to database
 
-        //notify of change?
 
-        //message
-        Toast.makeText(this,"Transaction Added",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -144,8 +143,8 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
 
         //Set TransactionType Spinner
         ArrayList<String> transactionTypes = new ArrayList<>();
-        transactionTypes.add(0,"Income");
-        transactionTypes.add(1,"Payment");
+        transactionTypes.add(0,"Deposit");
+        transactionTypes.add(1,"Withdrawl");
 
         ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(this,android.R.layout.test_list_item,transactionTypes);
         transactionTypeSpinner = findViewById(R.id.transaction_type_spinner);
@@ -166,7 +165,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
         transactionSubTypeSpinner.setOnItemSelectedListener(this);
 
         if(mDataSource.isEmpty("budgets")){
-            Toast.makeText(this,"Testing this update. There are currently no budgets set up.  Please create a budget before adding transactions",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"There are currently no budgets set up.  Please create a budget before adding transactions",Toast.LENGTH_SHORT).show();
             newTransaction.setVisibility(View.GONE);
         }else {
             newTransaction.setVisibility(View.VISIBLE);

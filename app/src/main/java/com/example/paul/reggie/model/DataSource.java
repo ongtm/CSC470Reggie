@@ -57,8 +57,10 @@ public class DataSource {
     public void onInsert(ContentValues contentValues, String tableName) {
 
         mDatabase.insert(tableName, null, contentValues);
+
     }
 
+    //This method is incorrect, we need to use the commented method instead
     public void onUpdate(ContentValues contentValues, String budgets) {
 
         mDatabase.insert(budgets, null, contentValues);
@@ -142,7 +144,7 @@ public class DataSource {
 
         //how to I use the toString method in the account class to do this
         Cursor cursor = mDatabase.query("accounts", new String[]{"accounts.accountID, accounts.accountName, " +
-                "accounts.accountType, accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits" +
+                "accounts.accountType, accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits, " +
                 "accounts.availableBalance"}, AccountsTable.COLUMN_ACCOUNTS_ACCOUNTID + "=?", new String[]{String.valueOf(accountId)}, null, null, null);
 
         if (cursor != null) {
@@ -188,6 +190,7 @@ public class DataSource {
     public void deleteAccount(String accountID) {
         mDatabase = mDBHelper.getWritableDatabase();
         mDatabase.delete("accounts", "accountID=?", new String[]{accountID});
+        deleteAllAccountTransactions(accountID);
 
     }
 
@@ -213,7 +216,11 @@ public class DataSource {
 
         List<Transactions> transactions = new ArrayList<>();
 
-        if (cursor != null) {
+        if (cursor == null) {
+            return null;
+        }
+        else{
+
             cursor.moveToFirst();
 
             do {
@@ -232,11 +239,13 @@ public class DataSource {
 
                 transactions.add(transaction);
             } while (cursor.moveToNext());
+
         }
 
         cursor.close();
 
         return transactions;
+
     }
 
     public void deleteBudget(String budgetID) {
@@ -268,52 +277,134 @@ public class DataSource {
         contentValues.put("transactionStatus",transStatus);
         mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});
 
+
     }
 
-    public void updateAccountTotals(String accountID, String transactionType, String transactionStatus, Double transAmount){
+    public void updateBudgetTotal(String budgetID, String transactionType, Double transctionAmount){
+        mDatabase = mDBHelper.getWritableDatabase();
+
+        Cursor cursor = mDatabase.query("budgets", new String[] {"budgets.budgetID, budgets.currentBudgetBalance"}, "budgetID=?",new String[] {budgetID},null,null,null);
+        Double oldBBalance = cursor.getDouble(cursor.getColumnIndex(BudgetsTable.COLUMN_BUDGET_CURRENTBUDGETBALANCE));
+
+        if(transactionType.equals("Deposit")){
+            oldBBalance = oldBBalance + transctionAmount;
+        }else{
+            oldBBalance = oldBBalance - transctionAmount;
+        }
+
+        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("currentBudgetBalance",oldBBalance);
+        mDatabase.update("budgets",contentValues,"budgetID=?", new String[] {budgetID});
+    }
+
+    public void updateAccountTotals(String accountID, String transactionType, String transactionStatus, Double transAmount, String transactionID,String methodType){
         mDatabase = mDBHelper.getWritableDatabase();
 
         Cursor cursor = mDatabase.query("accounts", new String[]{"accounts.accountID, " +
                 "accounts.currentBalance, accounts.pendingPayments, accounts.pendingDeposits, accounts.availableBalance"},"accountID=?",
                new String[] {accountID},null,null,null);
 
-        Double oldCBalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_CURRENTBALANCE));
-        Double oldPendingPayments = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGPAYMENTS));
-        Double oldPendingDeposits = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS));
-        Double oldABalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_AVAILABLEBALANCE));
+        if(cursor != null){
+            cursor.moveToFirst();
 
-        if(transactionStatus.equals("Cleared")){
+            Double oldCBalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_CURRENTBALANCE));
+            Double oldPendingPayments = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGPAYMENTS));
+            Double oldPendingDeposits = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_PENDINGDEPOSITS));
+            Double oldABalance = cursor.getDouble(cursor.getColumnIndex(AccountsTable.COLUMN_ACCOUNTS_AVAILABLEBALANCE));
+
+       if(transactionStatus.equals("Cleared") && methodType.equals("new")){
             //update CBalance
-            if(transactionType.equals("Income")){
+            if(transactionType.equals("Deposit")){
                 oldCBalance = oldCBalance + transAmount;
             }else{
                 oldCBalance = oldCBalance - transAmount;
             }
         }
-        else{
-            if (transactionType.equals("Income")){
-                oldABalance = oldABalance + transAmount;
+        else if(transactionStatus.equals("Pending") && methodType.equals("new")){
+            if (transactionType.equals("Deposit")){
                 oldPendingDeposits = oldPendingDeposits + transAmount;
             }
             else{
-                oldABalance = oldABalance - transAmount;
                 oldPendingPayments = oldPendingPayments + transAmount;
             }
         }
+        else if(transactionStatus.equals("Cleared") && methodType.equals("update")){
+           if(transactionType.equals("Deposit")){
+               oldCBalance = oldCBalance + transAmount;
+               oldPendingDeposits = oldPendingDeposits - transAmount;
+           }
+           else{
+               oldCBalance = oldCBalance - transAmount;
+               oldPendingPayments = oldPendingPayments - transAmount;
+           }
+       }else if(transactionStatus.equals("Pending") && methodType.equals("update")){
+           if(transactionType.equals("Deposit")){
+               oldCBalance = oldCBalance - transAmount;
+               oldPendingDeposits = oldPendingDeposits + transAmount;
+           }
+           else{
+               oldCBalance = oldCBalance + transAmount;
+               oldPendingPayments = oldPendingPayments + transAmount;
+           }
+       }else if(transactionStatus.equals("Cleared") && methodType.equals("delete")){
+           if(transactionType.equals("Deposit")){
+               oldCBalance = oldCBalance - transAmount;
+           }
+           else{
+               oldCBalance = oldCBalance + transAmount;
+           }
+       }else if(transactionStatus.equals("Pending") && methodType.equals("delete")){
+           if(transactionType.equals("Deposit")){
+               oldPendingDeposits = oldPendingDeposits - transAmount;
+           }
+           else{
+               oldPendingPayments = oldPendingPayments - transAmount;
+           }
+       }
 
-/*        ContentValues contentValues = new ContentValues(1);
-        contentValues.put("transactionStatus",transStatus);
-        mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});*/
 
-        ContentValues contentValues = new ContentValues(4);
-        contentValues.put("currentBalance",oldCBalance);
-        contentValues.put("availableBalance",oldABalance);
-        contentValues.put("pendingDeposits",oldPendingDeposits);
-        contentValues.put("pendingPayments",oldPendingPayments);
-        mDatabase.update("accounts",contentValues,"accountID=?",new String[] {accountID});
+        oldABalance=oldCBalance + oldPendingDeposits - oldPendingPayments;
 
 
+        ContentValues contentValues = new ContentValues(1);
+        contentValues.put("transactionStatus",transactionStatus);
+        mDatabase.update("transactions",contentValues,"transactionID=?",new String[]{transactionID});
+
+        ContentValues contentValues1 = new ContentValues(4);
+        contentValues1.put("currentBalance",oldCBalance);
+        contentValues1.put("availableBalance",oldABalance);
+        contentValues1.put("pendingDeposits",oldPendingDeposits);
+        contentValues1.put("pendingPayments",oldPendingPayments);
+        mDatabase.update("accounts",contentValues1,"accountID=?",new String[] {accountID});
+
+
+
+        }
 
     }
+public long getTransactionCountByAccountID (String accountID){
+    mDatabase = mDBHelper.getReadableDatabase();
 
+    Cursor cursor = mDatabase.query("transactions",new String[] {"transactions.accountID"},"accountID=?",new String[] {accountID},null,null,null);
+
+    if(cursor.getCount()!= 0){
+        return 1;
+    }else{
+        return 0;
+    }
+
+}
+    public long getNameCountByBudgetName (String budgetName){
+        mDatabase = mDBHelper.getReadableDatabase();
+
+        Cursor cursor = mDatabase.query("budgets",new String[] {"budgets.budgetName"},"budgetName=?",new String[] {budgetName},null,null,null);
+
+
+        if(cursor.getCount()==0){
+            return 0;
+        }else{
+            return 1;
+        }
+
+    }
 }

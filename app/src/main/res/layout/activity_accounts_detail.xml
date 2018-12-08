@@ -65,13 +65,14 @@
         app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_amount_label"
         android:text="$0.00"/>
 
-    <RadioButton
+    <ToggleButton
         android:id="@+id/account_detail_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:text="Cleared?"
+        android:textOn="Cleared"
+        android:textOff="Pending"
         app:layout_constraintStart_toEndOf="@+id/account_detail_transaction_amount"
         app:layout_constraintTop_toTopOf="@+id/account_detail_transaction_amount" />
 

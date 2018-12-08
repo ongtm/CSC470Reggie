@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.paul.reggie.R;
@@ -97,7 +96,17 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
             public void onCheckedChanged(CompoundButton compoundButton,boolean isChecked){
                 DataSource mDataSource = new DataSource(mContext);
                 mDataSource.open();
-                String strStatus = mTransactions.get(position).getTransactionStatus();
+
+                    String strStatus;
+
+                if(isChecked){
+                    strStatus = "Cleared";
+
+                }
+                else{
+                    strStatus="Pending";
+                }
+                /*String strStatus = mTransactions.get(position).isChecked();*/
                 String transactionId = mTransactions.get(position).getTransactionID();
 
                 //save updated value back to table
@@ -106,9 +115,9 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
                 String accountID = mTransactions.get(position).getAccountID();
                 String transType = mTransactions.get(position).getTransactionType();
                 Double transAmount =mTransactions.get(position).getTransactionAmount();
-
-                mDataSource.updateAccountTotals(accountID,transType,strStatus,transAmount);
-                notifyDataSetChanged();
+                String methodType = "update";
+                mDataSource.updateAccountTotals(accountID,transType,strStatus,transAmount,transactionId,methodType);
+                String newStatus = mTransactions.get(position).getTransactionStatus();
 
             }
         });
@@ -119,10 +128,20 @@ public class AccountDetailsAdapter extends RecyclerView.Adapter<AccountDetailsAd
                 DataSource mDataSource = new DataSource(mContext);
                 mDataSource.open();
                 String transactionID = mTransactions.get(position).getTransactionID();
+
+                String accountID = mTransactions.get(position).getAccountID();
+                String transType = mTransactions.get(position).getTransactionType();
+                Double transAmount = mTransactions.get(position).getTransactionAmount();
+                String transStatus = mTransactions.get(position).getTransactionStatus();
+                String methodType = "delete";
+
+                mDataSource.updateAccountTotals(accountID,transType,transStatus,transAmount,transactionID,methodType);
+
                 mDataSource.deleteTransaction(transactionID);
 
                 mTransactions.remove(mTransactions.get(position));
-                notifyDataSetChanged();;
+                notifyDataSetChanged();
+                Toast.makeText(mContext,"Transaction Deleted",Toast.LENGTH_SHORT).show();
             }
         });
     }

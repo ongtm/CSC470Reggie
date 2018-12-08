@@ -1,18 +1,17 @@
 package com.example.paul.reggie;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paul.reggie.adapters.AccountDetailsAdapter;
+import com.example.paul.reggie.model.Accounts;
 import com.example.paul.reggie.model.DataSource;
 import com.example.paul.reggie.model.Transactions;
 
@@ -30,6 +29,12 @@ public class AccountDetailActivity extends AppCompatActivity {
 
     String accountID;
     String accountName;
+    private TextView currentAccountBalance;
+    private TextView availableAccountBalance;
+    private TextView pendingPayments;
+    private TextView pendingDeposits;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -44,30 +49,58 @@ public class AccountDetailActivity extends AppCompatActivity {
 
         accountName = getIntent().getStringExtra("accountName");
         TextView thisAccountTitle = findViewById(R.id.accountTitle);
-        thisAccountTitle.setText(accountName);
 
         accountID = getIntent().getStringExtra("accountID");
+        thisAccountTitle.setText(accountName);
+
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
+        loadAccountDetails();
+
 
         loadTransactions(accountID);
 
     }
 
+    private void loadAccountDetails() {
+        Accounts thisAccount;
+
+        thisAccount=mDataSource.getAccount(accountID);
+
+        currentAccountBalance = findViewById(R.id.accountCurrentBalance);
+        availableAccountBalance=findViewById(R.id.accountAvailableBalance);
+        pendingPayments=findViewById(R.id.accountPendingPayments);
+        pendingDeposits=findViewById(R.id.accountPendingDeposits);
+
+        currentAccountBalance.setText(Double.toString(thisAccount.getAccountCurrentBalance()));
+        availableAccountBalance.setText(Double.toString(thisAccount.getAccountAvailableBalance()));
+        pendingPayments.setText(Double.toString(thisAccount.getAccountPendingPayments()));
+        pendingDeposits.setText(Double.toString(thisAccount.getAccountPendingDeposits()));
+    }
+
     public void loadTransactions(String accountID) {
         //Open database link
-        mDataSource = new DataSource(this);
-        mDataSource.open();
-        Toast.makeText(this,accountID,Toast.LENGTH_SHORT).show();
+
 
         //Transfer accounts info from database to Array for recylcerview load
         if(mDataSource.isEmpty("transactions") == false) {
-            mTransactions = mDataSource.getTransactions(accountID);
 
-            //Get items for recyclerview
-            AccountDetailsAdapter adapter = new AccountDetailsAdapter(this, mTransactions);
-            mRecyclerView = findViewById(R.id.account_detail_recyclerview);
-            mLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setAdapter(adapter);
+            Long hasTransactions;
+            Long one = new Long(1);
+
+            hasTransactions=mDataSource.getTransactionCountByAccountID(accountID);
+
+            if(hasTransactions.equals(one)){
+                mTransactions = mDataSource.getTransactions(accountID);
+
+                //Get items for recyclerview
+                AccountDetailsAdapter adapter = new AccountDetailsAdapter(this, mTransactions);
+                mRecyclerView = findViewById(R.id.account_detail_recyclerview);
+                mLayoutManager = new LinearLayoutManager(this);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mRecyclerView.setAdapter(adapter);
+            }
         }
 
     }

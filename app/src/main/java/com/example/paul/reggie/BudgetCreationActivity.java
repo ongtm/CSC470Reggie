@@ -56,12 +56,21 @@ public class BudgetCreationActivity extends AppCompatActivity {
             Budgets bBudget = new Budgets(null, budgetNameS, startingAmountD, startingAmountD);
             ContentValues contentValues;
             contentValues = bBudget.toBudgetsValues();
-            mDataSource.onInsert(contentValues, "budgets");
-            Toast.makeText(this, "Budget Added", Toast.LENGTH_SHORT).show();
 
+            Long nameExists;
+            Long zero = new Long(0);
+            nameExists = mDataSource.getNameCountByBudgetName(budgetNameS);
 
-            //Exit back to calling Activity
-            this.finish();
+            if(nameExists.equals(zero)) {
+                mDataSource.onInsert(contentValues, "budgets");
+                Toast.makeText(this, "Budget Added", Toast.LENGTH_SHORT).show();
+
+                //Exit back to calling Activity
+                this.finish();
+            }
+            else{
+                Toast.makeText(this,"This budget name already exists.  Please enter a new name",Toast.LENGTH_SHORT).show();
+            }
         }
 
 
