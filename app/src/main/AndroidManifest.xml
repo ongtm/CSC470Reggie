@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".BudgetDetailActivity" />
+        <!--<activity android:name=".BudgetDetailActivity" />-->
         <!--<activity
             android:name=".navActivity"
             android:label="@string/title_activity_nav"
