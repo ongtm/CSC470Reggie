@@ -1,4 +1,6 @@
-package com.example.paul.reggie;
+//SLATED FOR REMOVAL
+
+/*package com.example.paul.reggie;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -59,3 +61,4 @@ public class BudgetDetailActivity extends AppCompatActivity {
 
 }
 
+*/

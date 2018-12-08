@@ -66,7 +66,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
 
 
     public void onClickCreateNewTransaction(View view){
-        Toast.makeText(this,"account id " + accountID,Toast.LENGTH_SHORT).show();
+
         //check for values in fields
         if(isEmpty(transactionNameEditText)){
             Toast.makeText(this,"Please enter a transaction description.",Toast.LENGTH_SHORT).show();
@@ -176,7 +176,7 @@ public class TransactionCreationActivity extends AppCompatActivity implements Ad
 
             ArrayList<String> at = new ArrayList<>();
             for (int i = 0; i < budgets.size(); i++) {
-                //Toast.makeText(this,"This is " + accountTypes.get(1).getAccountTypeName(),Toast.LENGTH_LONG).show();
+
                 at.add(budgets.get(i).getBudgetName());
             }
 
